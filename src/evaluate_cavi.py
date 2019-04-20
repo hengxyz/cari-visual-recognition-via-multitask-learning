@@ -41,40 +41,7 @@ def main(args):
     with tf.Graph().as_default():
       
         with tf.Session() as sess:
-            
-            # Read the file containing the pairs used for testing
-            #pairs = lfw.read_pairs(os.path.expanduser(args.test_pairs))
-            #np.random.shuffle(pairs) ##avoid the n_same =0 or n_diff=0 during crossvalidation
-            paths = []
-            actual_issame = []
-            actual_isrequired = []
-            labels_actual = []
-            labels_require = []
-            labels_ref = []
-            pairs = []
 
-            # with open(os.path.expanduser(args.test_pairs),'r') as f:
-            #     for line in islice(f, 1, None):
-            #         pairs.append(line)
-            #     np.random.shuffle(pairs) ##avoid the n_same =0 or n_diff=0 during crossvalidation
-            #
-            # for pair in pairs:
-            #      [cnt, img, img_ref, issame, expr_actual, expr_require, expr_ref, expre_isrequire] = str.split(pair)
-            #      paths.append(img)
-            #      paths.append(img_ref)
-            #      issame = True if issame=='True' else False
-            #      actual_issame.append(issame)
-            #      expre_isrequire = True if expre_isrequire == 'True' else False
-            #      actual_isrequired.append(expre_isrequire)
-            #      labels_actual.append(int(expr_actual))
-            #      labels_require.append(int(expr_require))
-            #      labels_ref.append(int(expr_ref))
-
-            # ### all samples CAVI
-            # image_list_all, label_list_id_all, label_list_cari_all, nrof_classes_all = facenet_ext.get_image_paths_and_labels_cavi(
-            #     args.data_dir)
-            # paths = image_list_all
-            # labels_actual = label_list_id_all
 
             #########################   CARI    ##########################
             ## See_test samples
@@ -187,92 +154,13 @@ def main(args):
                 logits_visual_array[start_index:end_index,:] = logits_visual_
                 logits_cari_array[start_index:end_index,:] = logits_cari_
 
-            # len_emb = emb_array.shape[0]
-            # label_list_cari_all_ = label_list_cari_all[:len_emb]
-            # filter_visual = [x==0 for x in label_list_cari_all_]
-            # filter_cari = [x==1 for x in label_list_cari_all_]
+               print('Evaluate_model: %s' % args.evaluate_mode)
 
-            # row_visual = list(compress(range(len_emb), filter_visual))
-            # row_cari = list(compress(range(len_emb), filter_cari))
-            #
-            # emb_visual_array_real = emb_visual_array[row_visual]
-            # emb_c2v_array = emb_visual_array[row_cari]
-            # emb_cari_array_real = emb_cari_array[row_cari]
-            # emb_v2c_array = emb_cari_array[row_visual]
-
-            # label_id_emb_visual_real = list(np.array(label_list_id_all)[row_visual])
-            # label_id_emb_c2v = list(np.array(label_list_id_all)[row_cari])
-            # label_id_emb_cari_real = list(np.array(label_list_id_all)[row_cari])
-            # label_id_emb_v2c = list(np.array(label_list_id_all)[row_visual])
-
-            # np.save(os.path.join(log_dir, 'features_emb_visual_real.npy'), emb_visual_array_real)
-            # np.save(os.path.join(log_dir, 'features_emb_cari_real.npy'), emb_cari_array_real)
-            # np.save(os.path.join(log_dir, 'features_emb_c2v.npy'), emb_c2v_array)
-            # np.save(os.path.join(log_dir, 'features_emb_v2c.npy'), emb_v2c_array)
-            #
-            # np.save(os.path.join(log_dir, 'label_id_emb_visual_real.npy'), label_id_emb_visual_real)
-            # np.save(os.path.join(log_dir, 'label_id_emb_cari_real.npy'), label_id_emb_cari_real)
-            # np.save(os.path.join(log_dir, 'label_id_emb_c2v.npy'), label_id_emb_c2v)
-            # np.save(os.path.join(log_dir, 'label_id_emb_v2c.npy'), label_id_emb_v2c)
-
-
-
-            print('Evaluate_model: %s' % args.evaluate_mode)
-            # ### Expression evaluation #######
-            # logits_array_input = logits_visual_array[0::2] #don't need references images
-            # express_probs = np.exp(logits_array_input) / np.tile(np.reshape(np.sum(np.exp(logits_array_input), 1),(logits_array_input.shape[0], 1)), (1, logits_array_input.shape[1]))
-            # #nrof_expression = express_probs.shape[1]
-            # expressions_predict = np.argmax(express_probs, 1)
-            # correct_prediction = np.equal(expressions_predict, labels_actual)
-            # test_expr_acc = np.mean(correct_prediction)
-            # print('Expression recognition acc: %2.3f'%test_expr_acc)
-            # predict_isrequire_expression = np.equal(expressions_predict, labels_require)
-            # expression_verif = np.equal(predict_isrequire_expression, actual_isrequired)
-            # expression_verif_acc = np.mean(expression_verif)
-            # print('Expression Chanllenge-Reponse acc: %2.3f'%expression_verif_acc)
-            #
-            # #### saving the false expression recognition images  ######
-            # img_false_idx = [i for i, pred in enumerate(correct_prediction) if pred==False]
-            # imgs_expr_false =  [[paths[i*2],expressions_predict[i], labels_actual[i]] for i in img_false_idx]
-            # false_img_expr_folder = os.path.join(log_dir, 'false_expression_predict_imgs')
-            # os.mkdir(false_img_expr_folder)
-            # for img_expr_false in imgs_expr_false:
-            #     dst_dir = os.path.join(log_dir, false_img_expr_folder, str(img_expr_false[1]))
-            #     if not os.path.exists(dst_dir):
-            #         os.mkdir(dst_dir)
-            #     img = str.split(img_expr_false[0],'/')[-1]
-            #     img = str.split(img, '.')[0]
-            #     dstfile = os.path.join(dst_dir,img+'_pred%d'%(img_expr_false[1])+'_gt%d'%(img_expr_false[2])+'.png')
-            #     shutil.copy(img_expr_false[0], dstfile)
 
             #### Evaluation Face verification #############
             if args.evaluate_mode == 'Euclidian':
                 tprs, fprs, accuracy, val, val_std, fp_idx, fn_idx,best_threshold = lfw_ext.evaluate(emb_array, actual_issame, nrof_folds=args.lfw_nrof_folds, far=args.far)
-            # if args.evaluate_mode == 'similarity':
-            #     #pca = PCA(whiten=True)
-            #     pca = PCA(n_components=128)
-            #     pca.fit(emb_array)
-            #     emb_array_pca = pca.transform(emb_array)
-            #
-            #     tprs, fprs, accuracy, val, val_std, far, fp_idx, fn_idx,best_threshold = lfw_ext.evaluate_cosine(emb_array_pca,
-            #         actual_issame, nrof_folds=args.lfw_nrof_folds)
 
-
-            # diff = np.subtract(emb_array[0::2], emb_array[1::2])
-            # dist = np.sum(np.square(diff),1)
-            # predict_issame = np.less(dist, best_threshold)
-            # identity_verif = np.equal(predict_issame, actual_issame)
-            # identity_verif_acc = np.mean(identity_verif)
-            # print('Identity verification acc is : %2.3f'%identity_verif_acc)
-            # ############## Global Verification-Expression Accuracy  ################
-            # global_predict = np.equal(expression_verif, identity_verif)
-            # global_acc = np.mean(global_predict)
-            # print('Global Verification-Expression liveness verification acc is : %2.3f'%global_acc)
-
-            ################### edit by mzh 12012017: select the false positive/negative images ####################
-            # nrof_test_paths = nrof_batches * batch_size
-            # nrof_test_tp_pairs = sum(actual_issame[0:int(nrof_test_paths / 2)])
-            # nrof_test_tn_pairs = len(actual_issame[0:int(nrof_test_paths / 2)]) - nrof_test_tp_pairs
             nrof_test_tp_pairs = sum(actual_issame)
             nrof_test_tn_pairs = len(actual_issame) - nrof_test_tp_pairs
             nrof_test_paths = len(actual_issame)*2
@@ -284,7 +172,7 @@ def main(args):
             _, nrof_fp_pairs = fp_images_paths.shape
             _, nrof_fn_pairs = fn_images_paths.shape
 
-            ################### edit by mzh 12012017: select the false positive/negative images ####################
+            ################### select the false positive/negative images ####################
 
             print('Accuracy: %1.3f+-%1.3f\n' % (np.mean(accuracy), np.std(accuracy)))
             print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f\n' % (val, val_std, args.far))

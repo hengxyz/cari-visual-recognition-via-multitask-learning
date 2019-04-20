@@ -32,11 +32,6 @@ from random import shuffle
 from itertools import compress
 
 
-#### libs of DavaideSanderburg ####
-sys.path.insert(0, '../lib/facenet/src')
-import facenet
-import lfw
-
 ###### user custom lib
 import facenet_ext
 import lfw_ext
@@ -70,7 +65,7 @@ def main(args):
 
     # Store some git revision info in a text file in the log directory
     src_path,_ = os.path.split(os.path.realpath(__file__))
-    facenet.store_revision_info(src_path, log_dir, ' '.join(sys.argv))
+    facenet_ext.store_revision_info(src_path, log_dir, ' '.join(sys.argv))
 
     np.random.seed(seed=args.seed)
     random.seed(args.seed)
@@ -111,7 +106,7 @@ def main(args):
     pretrained_model = None
     if args.pretrained_model:
         pretrained_model = os.path.expanduser(args.pretrained_model)
-        meta_file, ckpt_file = facenet.get_model_filenames(os.path.expanduser(args.pretrained_model))
+        meta_file, ckpt_file = facenet_ext.get_model_filenames(os.path.expanduser(args.pretrained_model))
         print('Pre-trained model: %s' % pretrained_model)
 
     #########################   webcari    ##########################
@@ -173,7 +168,7 @@ def main(args):
                 image = tf.image.decode_png(file_contents)
                 #image = tf.image.decode_jpeg(file_contents)
                 if args.random_rotate:
-                    image = tf.py_func(facenet.random_rotate_image, [image], tf.uint8)
+                    image = tf.py_func(facenet_ext.random_rotate_image, [image], tf.uint8)
                 if args.random_crop:
                     image = tf.random_crop(image, [args.image_size, args.image_size, 3])
                 else:
@@ -220,7 +215,7 @@ def main(args):
         if args.center_loss_factor>0.0:
             prelogits_center_loss_verif, prelogits_center_loss_verif_n, centers, _, centers_cts_batch_reshape, diff_mean \
                 = metrics_loss.center_loss(embeddings, label_id_batch, args.center_loss_alfa, nrof_classes)
-            #prelogits_center_loss, _ = facenet.center_loss_similarity(prelogits, label_batch, args.center_loss_alfa, nrof_classes) ####Similarity cosine distance, center loss
+            #prelogits_center_loss, _ = facenet_ext.center_loss_similarity(prelogits, label_batch, args.center_loss_alfa, nrof_classes) ####Similarity cosine distance, center loss
             #tf.add_to_collection(tf.GraphKeys.REGULARIZATION_LOSSES, prelogits_center_loss_verif * args.center_loss_factor)
 
         cross_entropy_verif = tf.nn.sparse_softmax_cross_entropy_with_logits(
@@ -881,7 +876,7 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
     if args.learning_rate>0.0:
         lr = args.learning_rate
     else:
-        lr = facenet.get_learning_rate_from_file(learning_rate_schedule_file, epoch_current)
+        lr = facenet_ext.get_learning_rate_from_file(learning_rate_schedule_file, epoch_current)
 
     print('Index_dequeue_op....')
     index_epoch = sess.run(index_dequeue_op)
@@ -1168,12 +1163,12 @@ def evaluate(sess, enqueue_op, image_paths_placeholder, labels_id_placeholder, l
 
     # assert np.array_equal(lab_array, np.arange(nrof_enque))==True, 'Wrong labels used for evaluation, possibly caused by training examples left in the input pipeline'
     if evaluate_mode == 'Euclidian':
-        _, _, accuracy, val, val_std, far, fp_idx, fn_idx,best_threshold, val_threshold = lfw.evaluate(emb_array, actual_issame, nrof_folds=nrof_folds)
+        _, _, accuracy, val, val_std, far, fp_idx, fn_idx,best_threshold, val_threshold = lfw_ext.evaluate(emb_array, actual_issame, nrof_folds=nrof_folds)
     if evaluate_mode == 'similarity':
         pca = PCA(n_components=128)
         pca.fit(emb_array)
         emb_array_pca = pca.transform(emb_array)
-        _, _, accuracy, val, val_std, far, fp_idx, fn_idx,best_threshold, val_threshold = lfw.evaluate_cosine(emb_array_pca, actual_issame, nrof_folds=nrof_folds)
+        _, _, accuracy, val, val_std, far, fp_idx, fn_idx,best_threshold, val_threshold = lfw_ext.evaluate_cosine(emb_array_pca, actual_issame, nrof_folds=nrof_folds)
 
 
     print('Accuracy: %1.3f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))

@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="68e51f2a-c70c-4ff6-a0ec-1d3dadd943ac" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/2017-09-26-150948_smile.webm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/IdentitySplit_3th_10fold_ckpluspairs.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/IdentitySplit_3th_10fold_ckpluspairs_2k.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/IdentitySplit_4th_10fold_oulucasiapairs_Six.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/IdentitySplit_4th_10fold_oulucasiapairs_Six_5k.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/Zuheng_1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/configurations" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/Anthony_Hopkins_0001.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/Anthony_Hopkins_0002.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/Zuheng.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_retrain_tripletloss.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_casia.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_ckplus.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_ckplus_best.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_ckplus_nonan.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_ckplus_simple.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_fer.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_idiap.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_msceleb.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_oulucasia.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_oulucasia_v2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_oulucasia_v3.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_sfew.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/pairs.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/pairs_youtubeface_1000frames.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/smile_emoji.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/suprise_emoji.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/.carirecog_dynamic_L1L2L3_multimodel.py.swp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_doubleCenterloss.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_doubleCenterloss_newdyn.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_doubleCenterloss_newdyn_updatebybatch.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_10folds.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_2tasks_optimize_onelayer.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_2tasks_optimize_onelayer_2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_softmaxCenterloss.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_v1.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_v1_single_recog.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_naviedynamic_L1L2L3_multimodel_v3_2tasks_optimize_onelayer_2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/evaluate_id-expression-verif_oulucasia_joint.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/facenet_ext.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/plot_roc.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/plot_t-SNE.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/webcari_fixedweights_L1L2L3_multimodel.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evaluate_cavi.py" afterPath="$PROJECT_DIR$/src/evaluate_cavi.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evaluate_webcavi.py" afterPath="$PROJECT_DIR$/src/evaluate_webcavi.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evaluate_webcavi_identify.py" afterPath="$PROJECT_DIR$/src/evaluate_webcavi_identify.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/feature_extract_cavi.py" afterPath="$PROJECT_DIR$/src/feature_extract_cavi.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lfw_ext.py" afterPath="$PROJECT_DIR$/src/lfw_ext.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/metrics_loss.py" afterPath="$PROJECT_DIR$/src/metrics_loss.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/train_BP.py" afterPath="$PROJECT_DIR$/src/train_BP.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" afterPath="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="lfw_ext.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/lfw_ext.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1405">
+              <caret line="5" column="32" lean-forward="false" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
+              <folding>
+                <element signature="e#135#173#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="metrics_loss.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/metrics_loss.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+              <folding>
+                <element signature="e#814#4865#0" expanded="false" />
+                <element signature="e#4936#7218#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="train_BP.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/train_BP.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="118" column="0" lean-forward="true" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+              <folding>
+                <element signature="e#806#1790#0" expanded="false" />
+                <element signature="e#1932#4589#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="35" column="18" lean-forward="true" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer_rank.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer_rank.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="13" lean-forward="true" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_faces_webcari.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/get_faces_webcari.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-810">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="evaluate_webcavi_identify.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/evaluate_webcavi_identify.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="feature_extract_cavi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/feature_extract_cavi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-109">
+              <caret line="136" column="0" lean-forward="true" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="evaluate_webcavi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/evaluate_webcavi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1324">
+              <caret line="158" column="0" lean-forward="true" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>lfw.</find>
+      <find>get_model_filenames</find>
+      <find>random_rotate_image</find>
+      <find>get_learning_rate_from_file</find>
+      <find>load_data</find>
+      <find>store_revision_info</find>
+      <find>facenet_ext.</find>
+      <find>facenet.</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>lfw_ext.</replace>
+      <replace>facenet_ext.</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+        <option value="$PROJECT_DIR$/src/facenet_ext.py" />
+        <option value="$PROJECT_DIR$/src/evaluate_webcavi_identify.py" />
+        <option value="$PROJECT_DIR$/src/evaluate_cavi.py" />
+        <option value="$PROJECT_DIR$/src/evaluate_webcavi.py" />
+        <option value="$PROJECT_DIR$/src/feature_extract_cavi.py" />
+        <option value="$PROJECT_DIR$/src/lfw_ext.py" />
+        <option value="$PROJECT_DIR$/src/metrics_loss.py" />
+        <option value="$PROJECT_DIR$/src/train_BP.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1920" />
+    <option name="y" value="31" />
+    <option name="width" value="1920" />
+    <option name="height" value="1017" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="cari-visual-recognition-via-multitask-learning" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="cari-visual-recognition-via-multitask-learning" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="cari-visual-recognition-via-multitask-learning" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="cari-visual-recognition-via-multitask-learning" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="cari-visual-recognition-via-multitask-learning" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="cari-visual-recognition-via-multitask-learning" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="cari-visual-recognition-via-multitask-learning" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/.virtualenvs/py2.7_tf1.6/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="cari-visual-recognition-via-multitask-learning" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+      <option name="PARAMETERS" value="--logs_base_dir /data/zming/logs/cavi --models_base_dir /data/zming/models/cavi --data_dir /data/zming/datasets/WebCaricature/FaceDetected/ --image_size 160 --model_def ./models/inception_resnet_v1_cari_vis.py --optimizer RMSProp --learning_rate -1 --max_nrof_epochs 10000 --keep_probability 0.5 --learning_rate_schedule_file ../data/learning_rate_schedule_classifier_cavi.txt --weight_decay 5e-5 --center_loss_factor 1e-1 --center_loss_alfa 0.5 --gpu_memory_fraction 0.75 --epoch_size 100 --batch_size 256 --pretrained_model /data/zming/models/expression/20180113-231253/best_model --lfw_dir /data/zming/datasets/lfw/lfw_mtcnnpy_160 --nfold 100 --ifold 4 --learning_rate_decay_epochs 5 --train_pairs /data/zming/datasets/WebCaricature/Evaluation/FaceVerification/Restricted/RestrictedView1_DevTrain.txt --test_pairs /data/zming/datasets/WebCaricature/Evaluation/FaceVerification/Restricted/RestrictedView1_DevTest.txt" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Python.webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="68e51f2a-c70c-4ff6-a0ec-1d3dadd943ac" name="Default" comment="" />
+      <created>1555777874930</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1555777874930</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1920" y="31" width="1920" height="1017" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32945737" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32792208" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/facenet_ext.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/configurations">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/evaluate_cavi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="34" column="19" lean-forward="false" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/evaluate_webcavi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1324">
+          <caret line="158" column="0" lean-forward="true" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/evaluate_webcavi_identify.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/feature_extract_cavi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-109">
+          <caret line="136" column="0" lean-forward="true" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/get_faces_webcari.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-810">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plot_roc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-649">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/plot_t-SNE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="11" column="3" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="11" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcari_fixedweights_L1L2L3_multimodel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="382" column="39" lean-forward="true" selection-start-line="382" selection-start-column="39" selection-end-line="382" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer_rank.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="13" lean-forward="true" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="18" lean-forward="true" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/lfw_ext.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1405">
+          <caret line="5" column="32" lean-forward="false" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
+          <folding>
+            <element signature="e#135#173#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/metrics_loss.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#814#4865#0" expanded="false" />
+            <element signature="e#4936#7218#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/train_BP.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="118" column="0" lean-forward="true" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding>
+            <element signature="e#806#1790#0" expanded="false" />
+            <element signature="e#1932#4589#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
