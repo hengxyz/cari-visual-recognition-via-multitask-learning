@@ -1,11 +1,11 @@
 # Cross-model Caricature Face Recognitionvia Multi-task Learning
-This demo shows the Cross-model Caricature Face Recognition via Multi-task Learning, in which the caricature-visual image face verication, caricature face identication and the visual image face identication are conducted by the multi-task learning in the same deep CNNs with different branches. The weights of tasks can generate automatically with  a softmax like structure so called dynamic-weights-generating-unit according to the difficulty of the training of tasks which enable the networks always focus on the training of the hard task instead of the over-training easy task. No more hyperparameters are introduced for generating the dynamic weights. The demo is realized in TensorFlow1.6, Python 2.7 and openCV 3.0 under Unbuntu 16.4. The proposed architecture is shown in ![Fig.1](https://github.com/hengxyz/Dynamic_multi-task-learning/blob/master/figs/fig1.png).
+This demo shows the Cross-model Caricature Face Recognition via Multi-task Learning, in which the caricature-visual image face verication, caricature face identication and the visual image face identication are conducted by the multi-task learning in the same deep CNNs with different branches. The weights of tasks can generate automatically with  a softmax like structure so called dynamic-weights-generating-unit according to the difficulty of the training of tasks which enable the networks always focus on the training of the hard task instead of the over-training easy task. No more hyperparameters are introduced for generating the dynamic weights. The demo is realized in TensorFlow1.6, Python 2.7 and openCV 3.0 under Unbuntu 16.4. The proposed architecture is shown in ![Fig.1](https://github.com/hengxyz/cari-visual-recognition-via-multitask-learning/blob/master/figs/Fig0_Fig1.png).
 
 ## Comparison of the different recognition modalities of real visual images and caricatures.
-The different colors denote the different identities of the visual images or the caricatures. (a) is the classification results for the real visual images by the CNNs-based model trained on the real visual images (98.10\% of recognition accuracy); (b) is the classification results for the caricatures by the model of (a) (53.60\% of recognition accuracy); (c) is the classification results for the caricatures by the model trained on the caricatures (78.20\% of recognition accuracy) in which the architecture of the model is identical as (a); (d) is the classification results for the real visual images by the model of (c) (41.80\% of recognition accuracy). The visualisation is implemented by t-SNE as shown in is shown in ![Fig.1](https://github.com/hengxyz/Dynamic_multi-task-learning/blob/master/figs/fig1.png).
+The different colors denote the different identities of the visual images or the caricatures. (a) is the classification results for the real visual images by the CNNs-based model trained on the real visual images (98.10\% of recognition accuracy); (b) is the classification results for the caricatures by the model of (a) (53.60\% of recognition accuracy); (c) is the classification results for the caricatures by the model trained on the caricatures (78.20\% of recognition accuracy) in which the architecture of the model is identical as (a); (d) is the classification results for the real visual images by the model of (c) (41.80\% of recognition accuracy). The visualisation is implemented by t-SNE as shown in is shown in ![Fig.2](https://github.com/hengxyz/cari-visual-recognition-via-multitask-learning/blob/master/figs/github-fig2.png).
 
 ## Dynamic weights in multi-task learning
-The generating dynamic weights can automatically focus on the training of the hard task in the multi-task learning. The hard task with larger loss is always assigne with the larger weight of the task which force the networks to train the hard task primarily instead of the over-training of the easy task. In this way, the training of the multi-task is more efficient as shown in ![Fig.2](https://github.com/hengxyz/Dynamic_multi-task-learning/blob/master/figs/fig2.png).
+The generating dynamic weights can automatically focus on the training of the hard task in the multi-task learning. The hard task with larger loss is always assigne with the larger weight of the task which force the networks to train the hard task primarily instead of the over-training of the easy task. In this way, the training of the multi-task is more efficient as shown in ![Fig.3](https://github.com/hengxyz/cari-visual-recognition-via-multitask-learning/blob/master/figs/github-dyamicweights.png).
 
 
 ## Dependencies
@@ -23,7 +23,7 @@ The pretrained model of the face verifcation of the visual image on the large sc
 
 
 ## Training
-The cross-model caricature-visual face recogntion is trained on the  [CaVI](https://lsaiml.github.io/CaVINet/) and [WebCaricature](https://cs.nju.edu.cn/rl/WebCaricature.htm)
+The cross-model caricature-visual face recogntion is trained on the  [CaVI](https://lsaiml.github.io/CaVINet/) and [WebCaricature](https://cs.nju.edu.cn/rl/WebCaricature.htm). The examples of the datasets are shown in ![Fig.4](https://github.com/hengxyz/cari-visual-recognition-via-multitask-learning/blob/master/figs/Fig1-caricatures.png)
 
 
 
@@ -49,3 +49,4 @@ python webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py --logs
 --center_loss_factor : centerloss weight in the full loss function
 More details can be checked in the scripts.
 
+The evaluation of the model can conduct by the evaluate_cavi.py, evaluate_webcavi.py and evaluate_webcavi_identify.py
