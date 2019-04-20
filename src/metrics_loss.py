@@ -1,4 +1,4 @@
-"""Functions for loss function.
+"""Functions for metric loss function.
 """
 # MIT License
 # 

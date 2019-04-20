@@ -1,4 +1,8 @@
-
+"""Functions for the evaluation of the dynamic multi-task caricature-visual image face recogntion on dataset cavi.
+"""
+# MIT License
+#
+# Copyright (c) 2019 Zuheng Ming
 
 from __future__ import absolute_import
 from __future__ import division
@@ -7,8 +11,6 @@ from __future__ import print_function
 import tensorflow as tf
 import numpy as np
 import argparse
-#import facenet
-#import lfw
 import os
 import sys
 import math
@@ -274,7 +276,7 @@ def parse_arguments(argv):
     parser.add_argument('--evaluate_mode', type=str,
                         help='The evaluation mode: Euclidian distance or similarity by cosine distance.', default='Euclidian')
     parser.add_argument('--logs_base_dir', type=str,
-                        help='Directory where to write event logs.', default='/data/zming/logs/facenet')
+                        help='Directory where to write event logs.', default='/data/zming/logs/')
     parser.add_argument('--features_dir', type=str,
                         help='Directory where to write event logs.')
 

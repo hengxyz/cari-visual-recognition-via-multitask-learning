@@ -1,4 +1,8 @@
-
+"""Functions for dynamic multi-task caricature-visual image face recogntion on dataset cavi.
+"""
+# MIT License
+#
+# Copyright (c) 2019 Zuheng Ming
 
 from __future__ import absolute_import
 from __future__ import division
@@ -34,11 +38,6 @@ from random import shuffle
 from itertools import compress
 
 
-#### libs of DavaideSanderburg ####
-sys.path.insert(0, '../lib/facenet/src')
-import facenet
-import lfw
-
 ###### user custom lib
 import facenet_ext
 import lfw_ext
@@ -72,7 +71,7 @@ def main(args):
 
     # Store some git revision info in a text file in the log directory
     src_path,_ = os.path.split(os.path.realpath(__file__))
-    facenet.store_revision_info(src_path, log_dir, ' '.join(sys.argv))
+    facenet_ext.store_revision_info(src_path, log_dir, ' '.join(sys.argv))
 
     np.random.seed(seed=args.seed)
     random.seed(args.seed)
@@ -210,7 +209,7 @@ def main(args):
     pretrained_model = None
     if args.pretrained_model:
         pretrained_model = os.path.expanduser(args.pretrained_model)
-        meta_file, ckpt_file = facenet.get_model_filenames(os.path.expanduser(args.pretrained_model))
+        meta_file, ckpt_file = facenet_ext.get_model_filenames(os.path.expanduser(args.pretrained_model))
         print('Pre-trained model: %s' % pretrained_model)
     
     # if args.lfw_dir:
@@ -285,7 +284,7 @@ def main(args):
                 image = tf.image.decode_png(file_contents)
                 #image = tf.image.decode_jpeg(file_contents)
                 if args.random_rotate:
-                    image = tf.py_func(facenet.random_rotate_image, [image], tf.uint8)
+                    image = tf.py_func(facenet_ext.random_rotate_image, [image], tf.uint8)
                 if args.random_crop:
                     image = tf.random_crop(image, [args.image_size, args.image_size, 3])
                 else:
@@ -332,7 +331,7 @@ def main(args):
         if args.center_loss_factor>0.0:
             prelogits_center_loss_verif, prelogits_center_loss_verif_n, centers, _, centers_cts_batch_reshape, diff_mean \
                 = metrics_loss.center_loss(embeddings, label_id_batch, args.center_loss_alfa, nrof_classes)
-            #prelogits_center_loss, _ = facenet.center_loss_similarity(prelogits, label_batch, args.center_loss_alfa, nrof_classes) ####Similarity cosine distance, center loss
+            #prelogits_center_loss, _ = facenet_ext.center_loss_similarity(prelogits, label_batch, args.center_loss_alfa, nrof_classes) ####Similarity cosine distance, center loss
             #tf.add_to_collection(tf.GraphKeys.REGULARIZATION_LOSSES, prelogits_center_loss_verif * args.center_loss_factor)
 
         cross_entropy_verif = tf.nn.sparse_softmax_cross_entropy_with_logits(
@@ -531,38 +530,7 @@ def main(args):
 
         update_gradient_vars_expr = []
         update_gradient_vars_verif = []
-        update_gradient_vars_mainstem = []
-        update_gradient_vars_weights = []
 
-        # for var in tf.trainable_variables():
-        #     #Update variables for Branch Expression recogntion
-        #     if 'InceptionResnetV1_expression/' in var.op.name or 'Logits/' in var.op.name or 'Logits_0/' in var.op.name:
-        #             print(var.op.name)
-        #             update_gradient_vars_expr.append(var)
-        #     # Update variables for Branch face verification
-        #     elif 'InceptionResnetV1/Block8' in var.op.name or 'InceptionResnetV1/Repeat_2/block8' in var.op.name or 'Logits_verif/' in var.op.name:
-        #         print(var.op.name)
-        #         update_gradient_vars_verif.append(var)
-        #
-        #     # Update variables for main stem
-        #     else:
-        #         print(var.op.name)
-        #         update_gradient_vars_mainstem.append(var)
-        #
-        #     #update_gradient_vars_mainstem.append(var)
-
-        #update_gradient_vars_mainstem = tf.trainable_variables()
-        # for var in tf.trainable_variables():
-        #     # Update variables for dynmic weights
-        #     if 'Logits_lossweights/' not in var.op.name:
-        #         update_gradient_vars_mainstem.append(var)
-
-        # for var in tf.trainable_variables():
-        #     # Update variables for dynmic weights
-        #     if 'Logits_lossweights/' in var.op.name or 'Layer_lossweights' in var.op.name:
-        #         update_gradient_vars_weights.append(var)
-        #     else:
-        #         update_gradient_vars_mainstem.append(var)
 
         update_gradient_vars_mainstem = tf.trainable_variables()
 
@@ -1018,7 +986,7 @@ def train(args, sess, epoch, image_list, label_list, index_dequeue_op, enqueue_o
     if args.learning_rate>0.0:
         lr = args.learning_rate
     else:
-        lr = facenet.get_learning_rate_from_file(learning_rate_schedule_file, epoch_current)
+        lr = facenet_ext.get_learning_rate_from_file(learning_rate_schedule_file, epoch_current)
 
     print('Index_dequeue_op....')
     index_epoch = sess.run(index_dequeue_op)
@@ -1304,23 +1272,23 @@ def evaluate(sess, enqueue_op, image_paths_placeholder, labels_id_placeholder, l
 
     # assert np.array_equal(lab_array, np.arange(nrof_enque))==True, 'Wrong labels used for evaluation, possibly caused by training examples left in the input pipeline'
     if evaluate_mode == 'Euclidian':
-        _, _, accuracy, val, val_std, far, fp_idx, fn_idx,best_threshold, val_threshold = lfw.evaluate(emb_array, actual_issame, nrof_folds=nrof_folds)
+        _, _, accuracy, val, val_std, fp_idx, fn_idx,best_threshold = lfw_ext.evaluate(emb_array, actual_issame, nrof_folds=nrof_folds, far=args.far)
     if evaluate_mode == 'similarity':
         pca = PCA(n_components=128)
         pca.fit(emb_array)
         emb_array_pca = pca.transform(emb_array)
-        _, _, accuracy, val, val_std, far, fp_idx, fn_idx,best_threshold, val_threshold = lfw.evaluate_cosine(emb_array_pca, actual_issame, nrof_folds=nrof_folds)
+        _, _, accuracy, val, val_std, fp_idx, fn_idx,best_threshold = lfw_ext.evaluate_cosine(emb_array_pca, actual_issame, nrof_folds=nrof_folds, far=args.far)
 
 
     print('Accuracy: %1.3f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))
-    print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))
+    print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, args.far))
     lfw_time = time.time() - start_time
     # Add validation loss and accuracy to summary
     summary = tf.Summary()
     #pylint: disable=maybe-no-member
     summary.value.add(tag=dataset+'/accuracy', simple_value=np.mean(accuracy))
     summary.value.add(tag=dataset+'/val_rate', simple_value=val)
-    summary.value.add(tag=dataset + '/far_rate', simple_value=far)
+    summary.value.add(tag=dataset + '/far_rate', simple_value=args.far)
     summary.value.add(tag='time/'+dataset, simple_value=lfw_time)
     summary_writer.add_summary(summary, step)
 
@@ -1331,11 +1299,11 @@ def evaluate(sess, enqueue_op, image_paths_placeholder, labels_id_placeholder, l
         np.save(os.path.join(log_dir, 'features_cari-visual-verif_pairlabel.npy'), actual_issame)
 
     with open(os.path.join(log_dir,dataset+'_result.txt'),'at') as f:
-        f.write('%d\t%.5f\t%.5f\t%.5f\t%.5f\t%f\n' % (step, acc, val, far, best_acc, test_id_acc))
+        f.write('%d\t%.5f\t%.5f\t%.5f\t%.5f\t%f\n' % (step, acc, val, args.far, best_acc, test_id_acc))
 
 
 
-    return acc, val, far, test_id_acc
+    return acc, val, args.far, test_id_acc
 
 
 def evaluate_expression(sess,
@@ -1480,6 +1448,10 @@ def evaluate_expression(sess,
 
 
     return test_recog_acc, test_each_expr_acc, exp_cnt, expredict_cnt, express_probs_confus_matrix, express_recog_images
+
+
+
+
 def save_variables_and_metagraph(sess, saver, summary_writer, model_dir, model_name, step):
     # Save the model checkpoint
     print('Saving variables')
@@ -1605,6 +1577,9 @@ def parse_arguments(argv):
                         help='The base of the weight of the third sub-loss in the full loss.', default=0)
     parser.add_argument('--downsample', type=int,
                         help='The base of the weight of the third sub-loss in the full loss.', default=20)
+    parser.add_argument('--far', type=float,
+                        help='FAR/ false acception rate (false positive rate) for evaluating the validation / recall rate',
+                        default=0.01)
 
     # Parameters for validation on LFW
     parser.add_argument('--lfw_pairs', type=str,
@@ -1624,6 +1599,7 @@ def parse_arguments(argv):
     parser.add_argument('--evaluate_mode', type=str,
                         help='The evaluation mode: Euclidian distance or similarity by cosine distance.',
                         default='Euclidian')
+
 
     parser.add_argument('--expr_pairs', type=str,
                         help='Path to the data directory containing the aligned face with expressions for face verification validation.', default='../data/IdentitySplit_4th_10fold_oulucasiapairs_Six.txt')

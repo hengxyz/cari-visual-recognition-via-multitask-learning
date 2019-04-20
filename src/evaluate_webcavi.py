@@ -1,4 +1,8 @@
-
+"""Functions for the evaluation of the dynamic multi-task caricature-visual image face recogntion on dataset webcaricature.
+"""
+# MIT License
+#
+# Copyright (c) 2019 Zuheng Ming
 
 from __future__ import absolute_import
 from __future__ import division

@@ -1,3 +1,8 @@
+"""Functions for getting the face of the dataset webcari.
+"""
+# MIT License
+#
+# Copyright (c) 2019 Zuheng Ming
 import os
 import cv2
 import matplotlib.pyplot as plot

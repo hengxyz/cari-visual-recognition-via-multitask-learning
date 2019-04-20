@@ -1,3 +1,9 @@
+"""Functions for navie dynamic multi-task caricature-visual image face recogntion on dataset webcaricature.
+"""
+# MIT License
+#
+# Copyright (c) 2019 Zuheng Ming
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -32,11 +38,6 @@ from random import shuffle
 from itertools import compress
 
 
-#### libs of DavaideSanderburg ####
-sys.path.insert(0, '../lib/facenet/src')
-import facenet
-import lfw
-
 ###### user custom lib
 import facenet_ext
 import lfw_ext
@@ -70,7 +71,7 @@ def main(args):
 
     # Store some git revision info in a text file in the log directory
     src_path,_ = os.path.split(os.path.realpath(__file__))
-    facenet.store_revision_info(src_path, log_dir, ' '.join(sys.argv))
+    facenet_ext.store_revision_info(src_path, log_dir, ' '.join(sys.argv))
 
     np.random.seed(seed=args.seed)
     random.seed(args.seed)
@@ -111,7 +112,7 @@ def main(args):
     pretrained_model = None
     if args.pretrained_model:
         pretrained_model = os.path.expanduser(args.pretrained_model)
-        meta_file, ckpt_file = facenet.get_model_filenames(os.path.expanduser(args.pretrained_model))
+        meta_file, ckpt_file = facenet_ext.get_model_filenames(os.path.expanduser(args.pretrained_model))
         print('Pre-trained model: %s' % pretrained_model)
 
     #########################   webcari    ##########################
@@ -173,7 +174,7 @@ def main(args):
                 image = tf.image.decode_png(file_contents)
                 #image = tf.image.decode_jpeg(file_contents)
                 if args.random_rotate:
-                    image = tf.py_func(facenet.random_rotate_image, [image], tf.uint8)
+                    image = tf.py_func(facenet_ext.random_rotate_image, [image], tf.uint8)
                 if args.random_crop:
                     image = tf.random_crop(image, [args.image_size, args.image_size, 3])
                 else:
@@ -220,7 +221,7 @@ def main(args):
         if args.center_loss_factor>0.0:
             prelogits_center_loss_verif, prelogits_center_loss_verif_n, centers, _, centers_cts_batch_reshape, diff_mean \
                 = metrics_loss.center_loss(embeddings, label_id_batch, args.center_loss_alfa, nrof_classes)
-            #prelogits_center_loss, _ = facenet.center_loss_similarity(prelogits, label_batch, args.center_loss_alfa, nrof_classes) ####Similarity cosine distance, center loss
+            #prelogits_center_loss, _ = facenet_ext.center_loss_similarity(prelogits, label_batch, args.center_loss_alfa, nrof_classes) ####Similarity cosine distance, center loss
             #tf.add_to_collection(tf.GraphKeys.REGULARIZATION_LOSSES, prelogits_center_loss_verif * args.center_loss_factor)
 
         cross_entropy_verif = tf.nn.sparse_softmax_cross_entropy_with_logits(
@@ -882,7 +883,7 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
     if args.learning_rate>0.0:
         lr = args.learning_rate
     else:
-        lr = facenet.get_learning_rate_from_file(learning_rate_schedule_file, epoch_current)
+        lr = facenet_ext.get_learning_rate_from_file(learning_rate_schedule_file, epoch_current)
 
     print('Index_dequeue_op....')
     index_epoch = sess.run(index_dequeue_op)
@@ -1168,23 +1169,23 @@ def evaluate(sess, enqueue_op, image_paths_placeholder, labels_id_placeholder, l
 
     # assert np.array_equal(lab_array, np.arange(nrof_enque))==True, 'Wrong labels used for evaluation, possibly caused by training examples left in the input pipeline'
     if evaluate_mode == 'Euclidian':
-        _, _, accuracy, val, val_std, far, fp_idx, fn_idx,best_threshold, val_threshold = lfw.evaluate(emb_array, actual_issame, nrof_folds=nrof_folds)
+        _, _, accuracy, val, val_std, fp_idx, fn_idx,best_threshold = lfw_ext.evaluate(emb_array, actual_issame, nrof_folds=nrof_folds, far=args.far)
     if evaluate_mode == 'similarity':
         pca = PCA(n_components=128)
         pca.fit(emb_array)
         emb_array_pca = pca.transform(emb_array)
-        _, _, accuracy, val, val_std, far, fp_idx, fn_idx,best_threshold, val_threshold = lfw.evaluate_cosine(emb_array_pca, actual_issame, nrof_folds=nrof_folds)
+        _, _, accuracy, val, val_std, fp_idx, fn_idx,best_threshold = lfw_ext.evaluate_cosine(emb_array_pca, actual_issame, nrof_folds=nrof_folds, far=args.far)
 
 
     print('Accuracy: %1.3f+-%1.3f' % (np.mean(accuracy), np.std(accuracy)))
-    print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, far))
+    print('Validation rate: %2.5f+-%2.5f @ FAR=%2.5f' % (val, val_std, args.far))
     lfw_time = time.time() - start_time
     # Add validation loss and accuracy to summary
     summary = tf.Summary()
     #pylint: disable=maybe-no-member
     summary.value.add(tag=dataset+'/accuracy', simple_value=np.mean(accuracy))
     summary.value.add(tag=dataset+'/val_rate', simple_value=val)
-    summary.value.add(tag=dataset + '/far_rate', simple_value=far)
+    summary.value.add(tag=dataset + '/far_rate', simple_value=args.far)
     summary.value.add(tag='time/'+dataset, simple_value=lfw_time)
     summary_writer.add_summary(summary, step)
 
@@ -1195,155 +1196,14 @@ def evaluate(sess, enqueue_op, image_paths_placeholder, labels_id_placeholder, l
         np.save(os.path.join(log_dir, 'features_cari-visual-verif_pairlabel.npy'), actual_issame)
 
     with open(os.path.join(log_dir,dataset+'_result.txt'),'at') as f:
-        f.write('%d\t%.5f\t%.5f\t%.5f\t%.5f\t%f\n' % (step, acc, val, far, best_acc, test_id_acc))
+        f.write('%d\t%.5f\t%.5f\t%.5f\t%.5f\t%f\n' % (step, acc, val, args.far, best_acc, test_id_acc))
 
 
 
-    return acc, val, far, test_id_acc
+    return acc, val, args.far, test_id_acc
 
 
-def evaluate_expression(sess,
-             batch_size_placeholder,
-             logits, image_paths, actual_expre, batch_size, log_dir, step, summary_writer,
-             keep_probability_placeholder,input_queue,phase_train_placeholder_expression, phase_train_placeholder, args,
-             best_acc_recog, phase_train_placeholder_cari, imgtype, embeddings):
-    start_time = time.time()
-    # Run forward pass to calculate embeddings
-    #print('Runnning forward pass on FER2013 images')
-    print('Runnning forward pass on expression images')
-    nrof_images = len(actual_expre)
 
-    #batch_size = 128
-
-    ############## Enqueue complete batches ##############################
-    #nrof_batches = nrof_images // batch_size ## The floor division to get the maximum number of the complete batch
-    nrof_batches = int(math.ceil(1.0 * nrof_images / batch_size))
-
-    #nrof_enqueue = nrof_batches * batch_size
-    nrof_enqueue = nrof_images
-
-    ############## Allow enqueue incomplete batch  ##############################
-    # nrof_batches = int(math.ceil(nrof_images / batch_size)) ## To get the left elements in the queue when the nrof_images can be not exact divided by batch_size
-    # nrof_enqueue = nrof_images
-
-    # Enqueue one epoch of image paths and labels
-    #labels_array = np.expand_dims(actual_expre[0:nrof_enqueue], 1)
-    labels_array = np.expand_dims(np.arange(nrof_enqueue),1)  ## labels_array is not the label of expression of the image, it is the number of the image in the queue
-    image_paths_array = np.expand_dims(np.array(image_paths[0:nrof_enqueue]), 1)
-    # sess.run(enqueue_op, {image_paths_placeholder: image_paths_array, labels_id_placeholder: labels_array, labels_expr_placeholder: labels_array})
-    #filenames, label = sess.run(input_queue.dequeue())
-    logits_size = logits.get_shape()[1]
-    embedding_size = embeddings.get_shape()[1]
-
-    logits_array = np.zeros((nrof_enqueue, logits_size), dtype=float)
-    emb_array = np.zeros((nrof_enqueue, embedding_size), dtype=float)
-    ## label_batch_array is not the label of expression of the image , it is the number of the image in the queue.
-    ## label_batch_array is used for keeping the order of the labels and images after the batch_join operation which
-    ## generates the batch in multi-thread scrambling the order
-    label_batch_array = np.zeros(nrof_enqueue, dtype=int)
-
-    images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
-
-    for ii in range(nrof_batches):
-        print('nrof_batches %d'%ii)
-        start_index = ii* batch_size
-        end_index = min((ii + 1) * batch_size, nrof_images)
-        paths_batch = image_paths[start_index:end_index]
-        #### load image including the image whiten operation
-        images = facenet_ext.load_data(paths_batch, False, False, args.image_size)
-        feed_dict = {phase_train_placeholder: False, phase_train_placeholder_expression: False,
-                     phase_train_placeholder_cari: False, batch_size_placeholder: batch_size,
-                     keep_probability_placeholder: 1.0, images_placeholder: images}
-        ### Capture the exceptions when the queue is exhausted for producing the batch
-        try:
-            logits_batch,  emb = sess.run([logits, embeddings], feed_dict=feed_dict)
-        except tf.errors.OutOfRangeError:
-            print('Exceptions: the queue is exhausted !')
-
-        # label_batch_array[lab] = lab
-        # logits_array[lab] = logits_batch
-        logits_array[start_index:end_index, :] = logits_batch
-        emb_array[start_index:end_index, :] = emb
-    #assert np.array_equal(label_batch_array, np.arange(nrof_enqueue)) == True, 'Wrong labels used for evaluation, possibly caused by training examples left in the input pipeline'
-
-    actual_expre_batch = actual_expre[0:nrof_enqueue]
-    express_probs = np.exp(logits_array) / np.tile(np.reshape(np.sum(np.exp(logits_array), 1), (logits_array.shape[0], 1)), (1, logits_array.shape[1]))
-    nrof_expression = express_probs.shape[1]
-    expressions_predict = np.argmax(express_probs, 1)
-    #### Training accuracy of softmax: check the underfitting or overfiting #############################
-    correct_prediction = np.equal(expressions_predict, actual_expre_batch)
-    test_recog_acc = np.mean(correct_prediction)
-
-    ############# the accuracy of each expression  ################
-    ### Initializing the confusion matrix
-    exp_cnt = np.zeros(nrof_expression)
-    expredict_cnt = np.zeros(nrof_expression)
-    express_probs_confus_matrix = np.zeros((nrof_expression, nrof_expression))
-    express_recog_images = []
-    for i in range(nrof_expression):
-        express_recog_images.append([])
-        for _ in range(nrof_expression):
-            express_recog_images[i].append([])
-
-    ### Fill the confusion matrix
-    for i in range(label_batch_array.shape[0]):
-        lab  = actual_expre_batch[i]
-        exp_cnt[lab] += 1
-        express_probs_confus_matrix[lab, expressions_predict[i]] += 1
-        express_recog_images[lab][expressions_predict[i]].append(image_paths_array[i])
-        if  lab == expressions_predict[i]:
-            expredict_cnt[lab] += 1
-    test_each_expr_acc = expredict_cnt/exp_cnt
-    express_probs_confus_matrix /= np.expand_dims(exp_cnt,1)
-    ###############################################
-
-    print('%d %s recognition accuracy is: %f' % (nrof_expression, imgtype,test_recog_acc))
-
-    ############### Saving recognition CONFUSION Results images of the 7 expressions  #####################
-    # print('Saving expression recognition images corresponding to the confusion matrix in %s...'%log_dir)
-    #
-    # images_exists = glob.glob(os.path.join(log_dir, 'confusion_matrix_images*'))
-    # for folder in images_exists:
-    #     shutil.rmtree(folder)
-    #
-    # confus_images_folder = os.path.join(log_dir, 'confusion_matrix_images_%dsteps' % step)
-    #
-    # os.mkdir(confus_images_folder)
-    #
-    # ## mkdir for the confusion matrix of each expression
-    # for i in range(nrof_expression):
-    #     gt_folder = os.path.join(confus_images_folder, '%d')%i
-    #     os.mkdir(gt_folder)
-    #     for j in range(nrof_expression):
-    #         predict_folder = os.path.join(confus_images_folder, '%d', '%d')%(i,j)
-    #         os.mkdir(predict_folder)
-    #
-    # ## copy the predicting images to the corresponding folder of the predicting expression
-    # for i, labs_predict in enumerate(express_recog_images):
-    #     for j, lab_predict in enumerate(labs_predict):
-    #         dst = os.path.join(confus_images_folder, '%d', '%d')%(i,j)
-    #         for img in express_recog_images[i][j]:
-    #             shutil.copy(img[0], dst)
-    ############### Saving recognition results images of the 7 expressions  #####################
-
-    fer_time = time.time() - start_time
-    # Add validation loss and accuracy to summary
-    summary = tf.Summary()
-    # pylint: disable=maybe-no-member
-    summary.value.add(tag='fer/accuracy', simple_value=test_recog_acc)
-    summary.value.add(tag='time/fer', simple_value=fer_time)
-    summary_writer.add_summary(summary, step)
-    #with open(os.path.join(log_dir, 'Fer2013_result.txt'), 'at') as f:
-    with open(os.path.join(log_dir, '%s.txt'%imgtype), 'at') as f:
-        f.write('%d\t%.5f\t%.5f\n' % (step, test_recog_acc, best_acc_recog))
-
-    if test_recog_acc>best_acc_recog:
-        id_actual = actual_expre_batch
-        np.save(os.path.join(log_dir, 'features_%s.npy'%imgtype), emb_array)
-        np.save(os.path.join(log_dir, 'features_%s_label.npy'%imgtype), id_actual)
-
-
-    return test_recog_acc, test_each_expr_acc, exp_cnt, expredict_cnt, express_probs_confus_matrix, express_recog_images
 def save_variables_and_metagraph(sess, saver, summary_writer, model_dir, model_name, step):
     # Save the model checkpoint
     print('Saving variables')
@@ -1488,6 +1348,10 @@ def parse_arguments(argv):
     parser.add_argument('--evaluate_mode', type=str,
                         help='The evaluation mode: Euclidian distance or similarity by cosine distance.',
                         default='Euclidian')
+    parser.add_argument('--far', type=float,
+                        help='FAR/ false acception rate (false positive rate) for evaluating the validation / recall rate',
+                        default=0.01)
+
 
     parser.add_argument('--expr_pairs', type=str,
                         help='Path to the data directory containing the aligned face with expressions for face verification validation.', default='../data/IdentitySplit_4th_10fold_oulucasiapairs_Six.txt')

@@ -1,4 +1,8 @@
-
+"""Functions for extraction the features of the caricature image or visual face image for t-sne visualisation.
+"""
+# MIT License
+#
+# Copyright (c) 2019 Zuheng Ming
 
 from __future__ import absolute_import
 from __future__ import division
