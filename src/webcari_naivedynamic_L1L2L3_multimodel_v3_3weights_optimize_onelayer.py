@@ -44,22 +44,13 @@ import lfw_ext
 import metrics_loss
 import train_BP
 
-### FER2013 ###
-#EXPRSSIONS_TYPE =  ['0=Angry', '1=Disgust', '2=Fear', '3=Happy', '4=Sad', '5=Surprise', '6=Neutral']
-# ### CK+  ###
-#EXPRSSIONS_TYPE =  ['0=neutral', '1=anger', '2=contempt', '3=disgust', '4=fear', '5=happy', '6=sadness', '7=surprise']
-## OULU-CASIA  ###
-EXPRSSIONS_TYPE =  ['0=Anger', '1=Disgust', '2=Fear', '3=Happiness', '4=Sadness', '5=Surprise' ]
-###EXPRSSIONS_TYPE =  ['0=Neutral', '1=Anger', '2=Disgust', '3=Fear', '4=Happiness', '5=Sadness', '6=Surprise' ]
-# ### SFEW  ###
-# EXPRSSIONS_TYPE =  ['0=Angry', '1=Disgust', '2=Fear', '3=Happy', '4=Neutral', '5=Sad', '6=Surprise']
+
 
 def main(args):
     
     module_networks = str.split(args.model_def,'/')[-1]
     network = imp.load_source(module_networks, args.model_def)  
-    #etwork = importlib.import_module(args.model_def, 'inference')
-    #network = importlib.import_module(args.model_def)
+
 
     subdir = datetime.strftime(datetime.now(), '%Y%m%d-%H%M%S')
     log_dir = os.path.join(os.path.expanduser(args.logs_base_dir), subdir)
@@ -99,13 +90,10 @@ def main(args):
 
     ## filtering the visual images in test dataset
     filter = [x==0 for x in label_cari_test]
-    image_list_test_id_visual = list(compress(image_list_test, filter))
-    label_list_id_test_visual = list(compress(label_list_id_test, filter))
 
     # filtering the caricature images in test dataset
     filter = [x==1 for x in label_cari_test]
-    image_list_test_id_cari = list(compress(image_list_test, filter))
-    label_list_id_test_cari = list(compress(label_list_id_test, filter))
+
 
     print('Model directory: %s' % model_dir)
     print('Log directory: %s' % log_dir)
@@ -120,8 +108,6 @@ def main(args):
         print('Test data directory: %s' % args.data_dir)
 
         tf.set_random_seed(args.seed)
-        ## the global_step is saved as no name variable in the pretrained model, so adding the name 'global_step' will failed to load
-        #global_step = tf.Variable(0, trainable=False, name='global_step')
         global_step = tf.Variable(0, trainable=False)
 
 
@@ -162,11 +148,9 @@ def main(args):
         enqueue_op = input_queue.enqueue_many([image_paths_placeholder, labels_id_placeholder, labels_expr_placeholder, labels_cari_placeholder], name='enqueue_op')
         
         nrof_preprocess_threads = 4
-        #nrof_preprocess_threads = 1
         images_and_labels = []
         for _ in range(nrof_preprocess_threads):
             filenames, label_id, label_expr, label_cari = input_queue.dequeue()
-           # filenames, label_id, label_expr = input_queue.dequeue_up_to()
             images = []
             #for filename in tf.unpack(filenames): ## tf0.12
             for filename in tf.unstack(filenames): ## tf1.0
@@ -178,7 +162,6 @@ def main(args):
                 if args.random_crop:
                     image = tf.random_crop(image, [args.image_size, args.image_size, 3])
                 else:
-                    #image = tf.image.resize_image_with_crop_or_pad(image, args.image_size, args.image_size)
                     image = tf.image.resize_images(image, [args.image_size, args.image_size]) ## if input is face image, keep the whole image
                 if args.random_flip:
                     image = tf.image.random_flip_left_right(image)
@@ -221,8 +204,6 @@ def main(args):
         if args.center_loss_factor>0.0:
             prelogits_center_loss_verif, prelogits_center_loss_verif_n, centers, _, centers_cts_batch_reshape, diff_mean \
                 = metrics_loss.center_loss(embeddings, label_id_batch, args.center_loss_alfa, nrof_classes)
-            #prelogits_center_loss, _ = facenet_ext.center_loss_similarity(prelogits, label_batch, args.center_loss_alfa, nrof_classes) ####Similarity cosine distance, center loss
-            #tf.add_to_collection(tf.GraphKeys.REGULARIZATION_LOSSES, prelogits_center_loss_verif * args.center_loss_factor)
 
         cross_entropy_verif = tf.nn.sparse_softmax_cross_entropy_with_logits(
             logits=logits_id, labels=label_id_batch, name='cross_entropy_batch_verif')
@@ -231,30 +212,11 @@ def main(args):
         loss_verif_n = cross_entropy_verif + args.center_loss_factor*prelogits_center_loss_verif_n
         #loss_verif_n = cross_entropy_verif
         loss_verif = tf.reduce_mean(loss_verif_n, name='loss_verif')
-        #loss_verif = tf.add_n([loss_verif_n], name='loss_verif')
-        #tf.add_to_collection('losses', cross_entropy_mean_verif)
 
-        ###########################     Branch Visual image recognition  ################################
-        # ### transfer the output of the prelogits to 1600 elements which can respahe to 40x40 as an image input of the
-        # ### expression net
-        # logits_deconv = slim.fully_connected(prelogits, 1600, activation_fn=None,
-        #         weights_initializer=tf.truncated_normal_initializer(stddev=0.1),
-        #         weights_regularizer=slim.l2_regularizer(args.weight_decay),
-        #         scope='logits_deconv', reuse=False)
-        # ### reshape the prelogits to the 2D images [batch, width, height]
-        # prelogits_deconv = tf.reshape(logits_deconv, [batch_size_placeholder, 40,40,1], name='prelogits_reshape')
 
-        ### the expression net for expression classification, and the input is the reshaped logits_deconv
-        #inputs = end_points['MaxPool_3a_3x3']
-        #inputs = end_points['Conv2d_2b_3x3']
-        #inputs = end_points['Mixed_6a']
-        #inputs = end_points['Mixed_5a']
-        #inputs = end_points['Conv2d_4b_3x3']
-        #inputs = image_batch
+
         inputs = end_points['Mixed_7a']
-        #inputs = end_points['Mixed_8a']
-        #inputs = end_points['Mixed_6a']
-        #inputs = end_points['Mixed_6.5a']
+
         prelogits_expression, end_points_expression = network.inference_expression(inputs, keep_probability_placeholder, phase_train=phase_train_placeholder_expression, weight_decay=args.weight_decay)
         embeddings_expression = tf.nn.l2_normalize(prelogits_expression, 1, 1e-10, name='embeddings_expression')
 
@@ -265,11 +227,7 @@ def main(args):
         prelogits_expression_center_loss, prelogits_expression_center_loss_n, centers_expression, _, centers_cts_batch_reshape_expression, diff_mean_expression \
             = metrics_loss.center_loss(embeddings_expression_filter, label_id_filter_expr, args.center_loss_alfa, nrof_classes)
 
-        #logits_0 = slim.fully_connected(prelogits_expression, 128, activation_fn=tf.nn.relu,weights_initializer=tf.truncated_normal_initializer(stddev=0.1), weights_regularizer=slim.l2_regularizer(args.weight_decay),scope='Logits_0', reuse=False)
 
-        #logits_0 = slim.dropout(logits_0, keep_probability_placeholder, is_training=True, scope='Dropout')
-
-        #logits_expr = slim.fully_connected(logits_0, len(set(label_list_id)), activation_fn=tf.nn.relu,weights_initializer=tf.truncated_normal_initializer(stddev=0.1), weights_regularizer=slim.l2_regularizer(args.weight_decay),scope='Logits', reuse=False)
         logits_expr = slim.fully_connected(prelogits_expression, len(label_list_id_all_set), activation_fn=tf.nn.relu,weights_initializer=tf.truncated_normal_initializer(stddev=0.1), weights_regularizer=slim.l2_regularizer(args.weight_decay),scope='Logits', reuse=False)
 
         logits_expr = tf.identity(logits_expr, 'logits_expr')
@@ -287,12 +245,9 @@ def main(args):
         #tf.add_to_collection('losses', cross_entropy_mean)
         
         # Calculate the total losses
-        regularization_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
-        # loss_expr_n = cross_entropy_expr
         loss_expr_n = cross_entropy_expr+args.center_loss_factor*prelogits_expression_center_loss_n
         loss_expr = tf.reduce_mean(loss_expr_n, name='loss_expr')
-        #loss_expr = tf.add_n([cross_entropy_mean_expr]+[args.center_loss_factor*prelogits_expression_center_loss], name='loss_expr')
-        #loss_expr = tf.add_n([loss_expr_n], name='loss_expr')
+
 
 
         ####################### Branch for caricature recognition  ############################
@@ -385,10 +340,7 @@ def main(args):
 
         #weight_fullcrossentropy = tf.add_n([tf.multiply(loss_verif_percentage+args.loss_weight_base, loss_verif_n)]+[tf.multiply(loss_expr_percentage, loss_expr_n)], name='weight_fullcrossentropy')
         loss_full = tf.reduce_mean(weight_fullcrossentropy, name='loss_full')
-        #loss_full = tf.multiply(tf.transpose(softmax_lossweights),
-        #loss_full = tf.add_n([loss_verif]+[loss_expr_percentage*loss_expr], name='loss_full')
-        #loss_full = tf.add_n([1*loss_verif]+[args.expression_loss_factor*loss_expr], name='loss_full')
-        #loss_full = tf.matmul(tf.transpose(softmax_lossweights), [loss_verif, loss_expr])
+
 
 
         # #### Training accuracy of softmax: check the underfitting or overfiting #############################
@@ -420,38 +372,7 @@ def main(args):
 
         update_gradient_vars_expr = []
         update_gradient_vars_verif = []
-        update_gradient_vars_mainstem = []
-        update_gradient_vars_weights = []
 
-        # for var in tf.trainable_variables():
-        #     #Update variables for Branch Expression recogntion
-        #     if 'InceptionResnetV1_expression/' in var.op.name or 'Logits/' in var.op.name or 'Logits_0/' in var.op.name:
-        #             print(var.op.name)
-        #             update_gradient_vars_expr.append(var)
-        #     # Update variables for Branch face verification
-        #     elif 'InceptionResnetV1/Block8' in var.op.name or 'InceptionResnetV1/Repeat_2/block8' in var.op.name or 'Logits_verif/' in var.op.name:
-        #         print(var.op.name)
-        #         update_gradient_vars_verif.append(var)
-        #
-        #     # Update variables for main stem
-        #     else:
-        #         print(var.op.name)
-        #         update_gradient_vars_mainstem.append(var)
-        #
-        #     #update_gradient_vars_mainstem.append(var)
-
-        #update_gradient_vars_mainstem = tf.trainable_variables()
-        # for var in tf.trainable_variables():
-        #     # Update variables for dynmic weights
-        #     if 'Logits_lossweights/' not in var.op.name:
-        #         update_gradient_vars_mainstem.append(var)
-
-        # for var in tf.trainable_variables():
-        #     # Update variables for dynmic weights
-        #     if 'Logits_lossweights/' in var.op.name or 'Layer_lossweights' in var.op.name:
-        #         update_gradient_vars_weights.append(var)
-        #     else:
-        #         update_gradient_vars_mainstem.append(var)
 
         update_gradient_vars_mainstem = tf.trainable_variables()
         paracnt, parasize = count_paras(update_gradient_vars_verif)
@@ -463,10 +384,7 @@ def main(args):
         # Build the summary operation based on the TF collection of Summaries.
         summary_op = tf.summary.merge_all()
 
-        # train_op_verif, grads_verif, grads_clip_verif = train_BP.train(loss_verif, global_step, args.optimizer,
-        #     learning_rate, args.moving_average_decay, update_gradient_vars_verif, summary_op, args.log_histograms)
-        # train_op_expr, grads_expr, grads_clip_expr = train_BP.train(loss_expr, global_step, args.optimizer,
-        #     learning_rate, args.moving_average_decay, update_gradient_vars_expr, summary_op, args.log_histograms)
+
         train_op_mainstem, grads_full, grads_clip_full = train_BP.train(loss_full, global_step, args.optimizer,
             learning_rate, args.moving_average_decay, update_gradient_vars_mainstem, summary_op, args.log_histograms)
         # train_op_weights, grads_weights, grads_clip__weights = train_BP.train(loss_for_weights, global_step, args.optimizer,
@@ -512,15 +430,6 @@ def main(args):
                     restore_saver_cavi.restore(sess, os.path.join(os.path.expanduser(args.pretrained_model), ckpt_file))
                 if isExpressionModel:
                     print('>>>>>>>>>>>> Loading directly the pretrained FaceLiveNet model :%s.....'% os.path.join(os.path.expanduser(args.pretrained_model), ckpt_file))
-                    # for var in tf.global_variables():
-                    #     if 'center' not in var.op.name:
-                    #         restore_vars.append(var)
-                    #
-                    # paracnt, parasize = count_paras(restore_vars)
-                    # print('The number of the loading parameters in the model(FaceLiveNet) is %dM, ......the size is : %dM bytes' % (
-                    #         paracnt / 1e6, parasize / 1e6))
-                    # restore_saver_expression = tf.train.Saver(restore_vars)
-                    # restore_saver_expression.restore(sess,os.path.join(os.path.expanduser(args.pretrained_model), ckpt_file))
 
                     restore_vars_verif = []
                     restore_vars_expre = []
@@ -638,14 +547,6 @@ def main(args):
             nrof_expressions = len(set(label_list_id))
             each_expr_acc = np.zeros(nrof_expressions)
             express_probs_confus_matrix = np.zeros((nrof_expressions,nrof_expressions))
-            # with open(os.path.join(log_dir, 'Authentication_result.txt'), 'at') as f:
-            #     f.write('step, acc_faceauthen, best_acc_faceauthen, acc_expression, acc_verif_exprpairs\n')
-            # with open(os.path.join(log_dir, 'LFW_result.txt'), 'at') as f:webcari_fixedweights_L1L2L3_multimodel_v3_3weights_optimize_onelayer
-            #     f.write('step, acc, val, far, best_acc\n')
-            # with open(os.path.join(log_dir, 'Expr_paris_result.txt'), 'at') as f:
-            #     f.write('step, acc, val, far, best_acc\n')
-            # with open(os.path.join(log_dir, 'Expression_result.txt'), 'at') as f:
-            #     f.write('step, test_expr_acc, best_acc_exprecog\n')
 
             epoch_current = 0
             f_weights = open(os.path.join(log_dir, 'percentage_full_loss.txt'), 'at')
@@ -685,14 +586,7 @@ def main(args):
                 # Save variables and the metagraph if it doesn't exist already
                 save_variables_and_metagraph(sess, saver, summary_writer, model_dir, subdir, step)
 
-                ## Evaluate on LFW
-                # if(epoch%20==0):
-                #      if args.lfw_dir:
-                #          acc, val, far = evaluate(sess, enqueue_op, image_paths_placeholder, labels_id_placeholder,
-                #                                   labels_expr_placeholder, phase_train_placeholder, batch_size_placeholder,embeddings, label_id_batch,
-                #                                   lfw_paths, actual_issame, args.lfw_batch_size, args.lfw_nrof_folds,
-                #                                   log_dir, step, summary_writer, args.evaluate_mode,
-                #                                   keep_probability_placeholder, 'LFW', best_acc_faceverif_lfw, args)
+
                 if (epoch % 1 == 0):
                      if args.expr_pairs:
                          acc_expr_paris, val_expr_paris, far_expr_paris, acc_mixrecog = evaluate(sess, enqueue_op, image_paths_placeholder, labels_id_placeholder,
@@ -701,43 +595,6 @@ def main(args):
                                                   log_dir, step, summary_writer, args.evaluate_mode,
                                                   keep_probability_placeholder, 'cari-verif-pairs', best_acc_faceverif_expr,
                                                   args, logits_id, label_list_id_test)
-
-                # ## Evaluate for visual image classification
-                # if not (epoch % 1 ):
-                #     if args.evaluate_express:
-                #         acc_expression, each_expr_acc, exp_cnt, expredict_cnt,  express_probs_confus_matrix, express_recog_images\
-                #             = evaluate_expression(sess, batch_size_placeholder, logits_expr,
-                #                                   image_list_test_id_visual, label_list_id_test_visual, 100,
-                #                                   log_dir, step, summary_writer, keep_probability_placeholder,input_queue,
-                #                                   phase_train_placeholder_expression, phase_train_placeholder, args,
-                #                                   best_acc_exprecog, phase_train_placeholder_cari, 'visual', embeddings)
-                #
-                # ## Evaluate for caricature image classification
-                # if not (epoch % 1):
-                #     acc_cari, each_cari_acc, cari_cnt, caripredict_cnt, cari_probs_confus_matrix, cari_recog_images \
-                #         = evaluate_expression(sess, batch_size_placeholder, logits_cari,
-                #                               image_list_test_id_cari, label_list_id_test_cari, 100,
-                #                               log_dir, step, summary_writer, keep_probability_placeholder, input_queue,
-                #                               phase_train_placeholder_expression, phase_train_placeholder, args,
-                #                               best_acc_carirecog, phase_train_placeholder_cari, 'cari', embeddings)
-                #
-                # ## Evaluate for visual to caricature image classification
-                # if not (epoch % 1):
-                #     acc_v2c, each_v2c_acc, v2c_cnt, caripredict_v2c, v2c_probs_confus_matrix, v2c_recog_images \
-                #         = evaluate_expression(sess, batch_size_placeholder, logits_cari,
-                #                               image_list_test_id_visual, label_list_id_test_visual, 100,
-                #                               log_dir, step, summary_writer, keep_probability_placeholder, input_queue,
-                #                               phase_train_placeholder_expression, phase_train_placeholder, args,
-                #                               best_acc_v2c, phase_train_placeholder_cari, 'visual2cari', embeddings)
-                #
-                # ## Evaluate for caricature to visual image classification
-                # if not (epoch % 1 ):
-                #     acc_c2v, each_c2v_acc, c2v_cnt, c2vpredict_cnt,  c2v_probs_confus_matrix, c2v_recog_images\
-                #         = evaluate_expression(sess, batch_size_placeholder, logits_expr,
-                #                               image_list_test_id_cari, label_list_id_test_cari, 100,
-                #                               log_dir, step, summary_writer, keep_probability_placeholder,input_queue,
-                #                               phase_train_placeholder_expression, phase_train_placeholder, args,
-                #                               best_acc_c2v, phase_train_placeholder_cari, 'cari2visual', embeddings)
 
 
 
@@ -753,19 +610,7 @@ def main(args):
                     for file in glob.glob(os.path.join(model_dir, '*.*')):
                         shutil.copy(file, best_model_dir)
 
-                # ## saving the best_model for face verfication on LFW
-                # if acc > best_acc_faceverif_lfw:
-                #     best_acc_faceverif_lfw = acc
-                #     best_model_dir = os.path.join(model_dir, 'best_model_veriflfw')
-                #     if not os.path.isdir(best_model_dir):  # Create the log directory if it doesn't exist
-                #         os.makedirs(best_model_dir)
-                #     if os.listdir(best_model_dir):
-                #         for file in glob.glob(os.path.join(best_model_dir, '*.*')):
-                #             os.remove(file)
-                #     for file in glob.glob(os.path.join(model_dir, '*.*')):
-                #         shutil.copy(file, best_model_dir)
 
-                ## saving the best_model for visual recognition
                 if acc_expression>best_acc_exprecog:
                     best_acc_exprecog = acc_expression
                     best_model_dir = os.path.join(model_dir, 'best_model_expr')
@@ -777,30 +622,7 @@ def main(args):
                     for file in glob.glob(os.path.join(model_dir, '*.*')):
                         shutil.copy(file, best_model_dir)
 
-                    # ######################## SAVING BEST CONFUSION RESULTS IMAGES  ################################
-                    # images_exists = glob.glob(os.path.join(best_model_dir, 'confusion_matrix_images*'))
-                    # for folder in images_exists:
-                    #     shutil.rmtree(folder)
-                    #
-                    # confus_images_folder = os.path.join(best_model_dir, 'confusion_matrix_images_%dsteps' % step)
-                    #
-                    # os.mkdir(confus_images_folder)
-                    #
-                    # ## mkdir for the confusion matrix of each expression
-                    # for i in range(nrof_expressions):
-                    #     gt_folder = os.path.join(confus_images_folder, '%d') % i
-                    #     os.mkdir(gt_folder)
-                    #     for j in range(nrof_expressions):
-                    #         predict_folder = os.path.join(confus_images_folder, '%d', '%d') % (i, j)
-                    #         os.mkdir(predict_folder)
-                    #
-                    # ## copy the predicting images to the corresponding folder of the predicting expression
-                    # for i, labs_predict in enumerate(express_recog_images):
-                    #     for j, lab_predict in enumerate(labs_predict):
-                    #         dst = os.path.join(confus_images_folder, '%d', '%d') % (i, j)
-                    #         for img in express_recog_images[i][j]:
-                    #             shutil.copy(img[0], dst)
-                    # ######################## SAVING BEST CONFUSION RESULTS IMAGES  ################################
+
 
                 ## saving the best_model for cari recognition
                 if acc_cari > best_acc_carirecog:
@@ -826,31 +648,7 @@ def main(args):
                 if acc_mixrecog > best_acc_mixrecog:
                     best_acc_mixrecog = acc_mixrecog
 
-                # ###################   Saving the confusion matrix  ##########################################
-                # with open(os.path.join(log_dir, 'confusion_matrix.txt'), 'a') as f:
-                #     f.write('%d expressions recognition TRAINING accuracy is: %2.4f\n' % (nrof_expressions, softmax_acc_expr_))
-                #     f.write('loss_verif: %2.4f  loss_expr: %2.4f  crossentropy: %2.4f  regloss: %2.4f  centerloss: %2.4f  verifAcc: %2.4f  lr:%e \n' % (loss_verif_, loss_expr_, cross_entropy_mean_expr_, Reg_loss,  center_loss_, verifacc, learning_rate_))
-                #     line = ''
-                #     for idx, expr in enumerate(EXPRSSIONS_TYPE):
-                #         line += (expr + ': %2.4f,  ')%train_each_expr_acc[idx]
-                #     f.write('Training acc: '+line + '\n')
-                #
-                #     f.write('%d expressions recognition TEST accuracy is: %2.4f\n' % (nrof_expressions, acc_expression))
-                #     #f.write('>>>>>>>>>>>>>>>>>>>>>>>>>>> Gradient norm**2 is: %f\n' % grads_total_sum)
-                #     f.write('--------  Confusion matrix expressions recog AFTER %d steps of the iteration: ---------------\n' % step)
-                #     line = ''
-                #     for expr in EXPRSSIONS_TYPE:
-                #         line += expr + ',  '
-                #     f.write(line + '\n')
-                #
-                #     for i in range(nrof_expressions):
-                #         line = ''
-                #         line += '%d   ' % i
-                #         for j in range(nrof_expressions):
-                #             line += '%2.4f ' % express_probs_confus_matrix[i][j]
-                #         f.write(line + '\n')
-                #     f.write('----------------------------------------------------------------------------------------\n')
-                # ###################   Saving the confusion matrix  ##########################################
+
 
     return model_dir
   
@@ -933,18 +731,7 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
                      batch_size_placeholder: args.batch_size,
                      keep_probability_placeholder: args.keep_probability}
         if (batch_number % args.epoch_size == 0):
-            # #err, _, step, reg_loss, prelogits_center_loss_verif_, cross_entropy_mean_, centers_cts_batch_reshape_, softmax_acc_, logits_, summary_str = sess.run([loss, train_op, global_step, regularization_losses, prelogits_center_loss_verif, cross_entropy_mean, centers_cts_batch_reshape, softmax_acc, logits, summary_op], feed_dict=feed_dict)
-            # loss_verif_, loss_expr_, _, _, step, reg_loss, prelogits_center_loss_verif_, cross_entropy_mean_verif_, \
-            # cross_entropy_mean_expr_, centers_cts_batch_reshape_, logits_id_, logits_expr_, label_batch_id_, \
-            # label_batch_expr_, grads_expr_, grads_clip_expr_, image_batch_, learning_rate_, softmax_acc_verif_, \
-            # softmax_acc_expr_, cross_entropy_verif_, diff_mean_, centers_, _, loss_verif_percentage_, \
-            # loss_expr_percentage_, summary_str \
-            #     = sess.run([loss_verif, loss_expr, train_op_verif, train_op_expr, global_step, regularization_losses,
-            #                 prelogits_center_loss_verif, cross_entropy_mean_verif, cross_entropy_mean_expr,
-            #                 centers_cts_batch_reshape, logits_id, logits_expr, label_batch_id, label_batch_expr, grads_expr,
-            #                 grads_clip_expr, image_batch, learning_rate, softmax_acc_verif, softmax_acc_expr,
-            #                 cross_entropy_verif, diff_mean, centers, train_op_mainstem, loss_verif_percentage,
-            #                 loss_expr_percentage, summary_op], feed_dict=feed_dict)
+
             loss_verif_, loss_expr_, step, reg_loss, prelogits_center_loss_verif_, cross_entropy_mean_verif_, \
             cross_entropy_mean_expr_, centers_cts_batch_reshape_, logits_id_, logits_expr_, label_batch_id_, \
             label_batch_expr_, image_batch_, learning_rate_, softmax_acc_verif_, \
@@ -961,19 +748,6 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
                             summary_op], feed_dict=feed_dict)
             summary_writer.add_summary(summary_str, global_step=step)
         else:
-            # #err, _, step, reg_loss, prelogits_center_loss_verif_, cross_entropy_mean_, centers_cts_batch_reshape_, softmax_acc_, logits_ = sess.run([loss, train_op, global_step, regularization_losses,prelogits_center_loss_verif, cross_entropy_mean, centers_cts_batch_reshape, softmax_acc, logits], feed_dict=feed_dict)
-            # loss_verif_, loss_expr_, _, _, step, reg_loss, prelogits_center_loss_verif_, cross_entropy_mean_verif_, \
-            # cross_entropy_mean_expr_, centers_cts_batch_reshape_, logits_id_, logits_expr_, label_batch_id_, \
-            # label_batch_expr_, grads_expr_, grads_clip_expr_, image_batch_, learning_rate_, softmax_acc_verif_, \
-            # softmax_acc_expr_, cross_entropy_verif_, diff_mean_, centers_, _, loss_verif_percentage_, \
-            # loss_expr_percentage_ \
-            #     = sess.run([loss_verif, loss_expr,  train_op_verif, train_op_expr, global_step, regularization_losses,
-            #                 prelogits_center_loss_verif, cross_entropy_mean_verif, cross_entropy_mean_expr,
-            #                 centers_cts_batch_reshape, logits_id, logits_expr, label_batch_id, label_batch_expr, grads_expr,
-            #                 grads_clip_expr, image_batch, learning_rate, softmax_acc_verif, softmax_acc_expr,
-            #                 cross_entropy_verif, diff_mean,centers, train_op_mainstem, loss_verif_percentage,
-            #                 loss_expr_percentage], feed_dict=feed_dict)
-            #err, _, step, reg_loss, prelogits_center_loss_verif_, cross_entropy_mean_, centers_cts_batch_reshape_, softmax_acc_, logits_ = sess.run([loss, train_op, global_step, regularization_losses,prelogits_center_loss_verif, cross_entropy_mean, centers_cts_batch_reshape, softmax_acc, logits], feed_dict=feed_dict)
             loss_verif_, loss_expr_, step, reg_loss, prelogits_center_loss_verif_, cross_entropy_mean_verif_, \
             cross_entropy_mean_expr_, centers_cts_batch_reshape_, logits_id_, logits_expr_, label_batch_id_, \
             label_batch_expr_, image_batch_, learning_rate_, softmax_acc_verif_, \
@@ -1022,45 +796,7 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
         ####################### check the state of the update weights/bias in the variables by summing up the values the dimensions of the variables ##########################
 
 
-        ####### gradients values checking ####################
-        grads_sum = 0
-        grad_clip_sum = 0
-        #######################################################################################################
-        ########### grad[0] is the gradient, and the grad[1] is value of the weights or bias ###
-        ########### grads_weights[2i] are the weights of layer i, and the grads_weights_[2i+1] are the bias of layers i###
-        #######################################################################################################
-        # for i, grad in enumerate(grads_weights_):
-        #     grad_norm = LA.norm(np.asarray(grad[0]))
-        #     # if math.isnan(grad_norm):
-        #     #     print(grad)
-        #     grads_sum += grad_norm**2
-        #     print ('grad_%dth: %f  '%(i,grad_norm), end='')
-        # print('\n')
-        # for i, grad_clip in enumerate(grads_clip__weights_):
-        #     grad_clip_norm = LA.norm(np.asarray(grad_clip))
-        #     grad_clip_sum += grad_clip_norm**2
-        #     print ('grad_clip_%dth: %f  '%(i,grad_clip_norm), end='')
-        # print('\n')
-        # print('>>>>>>>>>>>>>>>>>>>>>>>>>>> Gradient norm is: %f' % math.sqrt(grads_sum))
-        # print('>>>>>>>>>>>>>>>>>>>>>>>>>>> Gradient clip norm is: %f' % math.sqrt(grad_clip_sum))
 
-
-
-        # ############# the accuracy of each expression  ################
-        # express_probs = np.exp(logits_expr_) / np.tile(
-        #     np.reshape(np.sum(np.exp(logits_expr_), 1), (logits_expr_.shape[0], 1)), (1, logits_expr_.shape[1]))
-        # nrof_expression = len(set(label_list_id))
-        # expressions_predict = np.argmax(express_probs, 1)
-        #
-        # exp_cnt = np.zeros(nrof_expression)
-        # expredict_cnt = np.zeros(nrof_expression)
-        # for i in range(label_batch_expr_.shape[0]):
-        #     lab = label_batch_expr_[i]
-        #     exp_cnt[lab] += 1
-        #     if lab == expressions_predict[i]:
-        #         expredict_cnt[lab] += 1
-        # train_each_expr_acc = expredict_cnt / exp_cnt
-        ###############################################
         print('########## log dir is: %s '%log_dir )
         print('########## model dir is: %s ' %model_dir)
         # print('Epoch: [%d][%d/%d]\tTime %.3f\tLoss %2.4f\tCrossEntropy %2.4f\tRegLoss %2.4f\tCenterLoss_cosine %2.4f\tAcc %2.4f\tVal %2.4f\tFar %2.4f' %
@@ -1073,10 +809,7 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
              cross_entropy_mean_expr_, cross_entropy_mean_cari_, np.mean(loss_verif_percentage_), np.mean(loss_expr_percentage_), np.mean(loss_cari_percentage_), \
              np.exp(np.mean(logits_lossweights_embedings_[:,0])), np.exp(np.mean(logits_lossweights_embedings_[:,1])), np.exp(np.mean(logits_lossweights_embedings_[:,2])), loss_for_weights_, \
              np.sum(reg_loss), prelogits_center_loss_verif_, softmax_acc_verif_, softmax_acc_expr_, softmax_acc_cari_, learning_rate_))
-        #print('Training each_expression_acc: 0=Angry %2.4f, 1=Disgust %2.4f, 2=Fear %2.4f, 3=Happy %2.4f, 4=Sad %2.4f, 5=Surprise %2.4f, 6=Neutral %2.4f' % (train_each_expr_acc[0], train_each_expr_acc[1], train_each_expr_acc[2], train_each_expr_acc[3], train_each_expr_acc[4], train_each_expr_acc[5],train_each_expr_acc[6]))
-        #print ('Test each_expression_acc: 0=Angry %2.4f, 1=Disgust %2.4f, 2=Fear %2.4f, 3=Happy %2.4f, 4=Sad %2.4f, 5=Surprise %2.4f, 6=Neutral %2.4f'%(each_expr_acc[0], each_expr_acc[1], each_expr_acc[2], each_expr_acc[3], each_expr_acc[4], each_expr_acc[5], each_expr_acc[6]))
-        #print('Face Authentication : acc_auth %f, best_acc_authen %f (acc_expr_pairs:%f, acc_exprrecog: %f)'%(acc_expr_paris*acc_expression, best_acc_faceauthen, best_authen_verif_exprpairs, best_authen_exprecog))
-        #print('Face verification on LFW: acc_LFW %f, val_LFW %f, far_LFW %f, best_acc_faceverif_LFW %f'%(acc, val, far, best_acc_faceverif_lfw))
+
         print('Verification on Cari-Visual pairs: acc %f, val %f, far %f, best_acc %f'%(acc_expr_paris, val_expr_paris, far_expr_paris, best_acc_faceverif_expr))
         print('Visual image recognition : test_visual_acc %2.4f, best_visual_acc %2.4f'%(acc_expression, best_acc_exprecog))
         print('Caricature image recognition : test_cari_acc %2.4f, best_cari_acc %2.4f'%(acc_cari, best_acc_carirecog))
@@ -1084,31 +817,7 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
         print('V2C image recognition : test_v2c_acc %2.4f, best_v2c_acc %2.4f'%(acc_v2c, best_acc_v2c))
         print('Mix image recognition : test_mix_acc %2.4f, best_mix_acc %2.4f' % (acc_mixrecog, best_acc_mixrecog))
 
-        # if np.exp(np.mean(logits_lossweights_embedings_[:,0]))==1.0 or np.exp(np.mean(logits_lossweights_embedings_[:,1])) == 1.0 or np.exp(np.mean(logits_lossweights_embedings_[:,2])) == 1.0:
-        #     print ('stop')
 
-
-        # print('Training each_expression_acc: ',end = '')
-        # for i, expr in enumerate(EXPRSSIONS_TYPE):
-        #     print(expr+'  %2.4f  '%(train_each_expr_acc[i]),end='')
-        # print('\n')
-        #
-        # print('Test each_expression_acc: ',end = '')
-        # for i, expr in enumerate(EXPRSSIONS_TYPE):
-        #     print(expr+'  %2.4f  '%(each_expr_acc[i]),end='')
-        # print('\n')
-       
-        # print('---------------------- Confusion matrix expressions recog ----------------------\n')
-        # for expr in EXPRSSIONS_TYPE:
-        #     print(expr+',  ',end='')
-        # print('\n')
-        #
-        # for i in range(nrof_expression):
-        #     print ('%d   '%i, end='')
-        #     for j in range(nrof_expression):
-        #         print ('%2.4f '%express_probs_confus_matrix[i][j], end='')
-        #     print('\n')
-        # print('----------------------------------------------------------------------------------------\n')
 
 
         batch_number += 1

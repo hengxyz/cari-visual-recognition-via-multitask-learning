@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68e51f2a-c70c-4ff6-a0ec-1d3dadd943ac" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_navie.py" afterPath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_navie.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" afterPath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" afterPath="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" afterPath="$PROJECT_DIR$/src/webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,31 +20,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="save_false_images.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/save_false_images.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="save_false_images_webcavi.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/save_false_images_webcavi.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="32" />
+            <state relative-caret-position="-1485">
+              <caret line="852" column="0" lean-forward="false" selection-start-line="852" selection-start-column="0" selection-end-line="852" selection-end-column="0" />
               <folding>
                 <element signature="e#156#194#0" expanded="true" />
               </folding>
@@ -53,40 +35,8 @@
       <file leaf-file-name="inception_resnet_v1_cari_vis.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/models/inception_resnet_v1_cari_vis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
+            <state relative-caret-position="-195">
               <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="face_align_mtcnn.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/align_ext/face_align_mtcnn.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="face_detect_mtcnn.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/align_ext/face_detect_mtcnn.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="face_align.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/align_ext/face_align.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -112,12 +62,66 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <folding>
+                <element signature="e#162#200#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="498">
               <caret line="51" column="117" lean-forward="false" selection-start-line="51" selection-start-column="117" selection-end-line="51" selection-end-column="117" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="feature_extract_cavi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/feature_extract_cavi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-720">
+              <caret line="0" column="109" lean-forward="false" selection-start-line="0" selection-start-column="109" selection-end-line="0" selection-end-column="109" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="facenet_ext.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/facenet_ext.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1305">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_navie.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_navie.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1195">
+              <caret line="1083" column="11" lean-forward="false" selection-start-line="1083" selection-start-column="4" selection-end-line="1083" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1650">
+              <caret line="1080" column="0" lean-forward="false" selection-start-line="1080" selection-start-column="0" selection-end-line="1080" selection-end-column="0" />
+              <folding>
+                <element signature="e#153#191#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -142,6 +146,7 @@
       <find>far</find>
       <find>facenet_ext.</find>
       <find>get_image_paths_and_labels_webcari_rank_train</find>
+      <find>EXPRSSIONS_TYPE</find>
     </findStrings>
     <replaceStrings>
       <replace>facenet_ext.</replace>
@@ -158,10 +163,6 @@
         <option value="$PROJECT_DIR$/src/lfw_ext.py" />
         <option value="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer_rank.py" />
         <option value="$PROJECT_DIR$/src/facenet_ext.py" />
-        <option value="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_navie.py" />
-        <option value="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
-        <option value="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
-        <option value="$PROJECT_DIR$/src/webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
         <option value="$PROJECT_DIR$/src/evaluate_cavi.py" />
         <option value="$PROJECT_DIR$/src/evaluate_webcavi.py" />
         <option value="$PROJECT_DIR$/src/evaluate_webcavi_identify.py" />
@@ -169,6 +170,10 @@
         <option value="$PROJECT_DIR$/src/get_faces_webcari.py" />
         <option value="$PROJECT_DIR$/src/metrics_loss.py" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+        <option value="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+        <option value="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+        <option value="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_navie.py" />
       </list>
     </option>
   </component>
@@ -230,6 +235,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="data" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -247,7 +270,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
+  <component name="RunManager" selected="Python.webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -501,7 +524,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py</url>
-          <line>948</line>
+          <line>832</line>
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/facenet_ext.py</url>
@@ -625,24 +648,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_navie.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="32" />
-          <folding>
-            <element signature="e#147#185#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/evaluate_webcavi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2685">
@@ -668,22 +673,6 @@
           <folding>
             <element signature="e#207#245#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/facenet_ext.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/feature_extract_cavi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="109" lean-forward="false" selection-start-line="0" selection-start-column="109" selection-end-line="0" selection-end-column="109" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -737,14 +726,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/util/plot_learning_curves.m">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -765,14 +746,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/models/inception_resnet_v1_cari_vis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
           <folding />
         </state>
       </provider>
@@ -819,20 +792,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="51" column="117" lean-forward="false" selection-start-line="51" selection-start-column="117" selection-end-line="51" selection-end-column="117" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/models/inception_resnet_v1_cari_vis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-195">
+          <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/feature_extract_cavi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-720">
+          <caret line="0" column="109" lean-forward="false" selection-start-line="0" selection-start-column="109" selection-end-line="0" selection-end-column="109" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/facenet_ext.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1305">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/webcari_naivedynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding>
+            <element signature="e#162#200#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="4" selection-end-column="32" />
+        <state relative-caret-position="-1485">
+          <caret line="852" column="0" lean-forward="false" selection-start-line="852" selection-start-column="0" selection-end-line="852" selection-end-column="0" />
           <folding>
             <element signature="e#156#194#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="51" column="117" lean-forward="false" selection-start-line="51" selection-start-column="117" selection-end-line="51" selection-end-column="117" />
+        <state relative-caret-position="-1650">
+          <caret line="1080" column="0" lean-forward="false" selection-start-line="1080" selection-start-column="0" selection-end-line="1080" selection-end-column="0" />
+          <folding>
+            <element signature="e#153#191#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_navie.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1195">
+          <caret line="1083" column="11" lean-forward="false" selection-start-line="1083" selection-start-column="4" selection-end-line="1083" selection-end-column="11" />
           <folding />
         </state>
       </provider>

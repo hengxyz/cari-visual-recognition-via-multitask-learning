@@ -44,22 +44,13 @@ import lfw_ext
 import metrics_loss
 import train_BP
 
-### FER2013 ###
-#EXPRSSIONS_TYPE =  ['0=Angry', '1=Disgust', '2=Fear', '3=Happy', '4=Sad', '5=Surprise', '6=Neutral']
-# ### CK+  ###
-#EXPRSSIONS_TYPE =  ['0=neutral', '1=anger', '2=contempt', '3=disgust', '4=fear', '5=happy', '6=sadness', '7=surprise']
-## OULU-CASIA  ###
-EXPRSSIONS_TYPE =  ['0=Anger', '1=Disgust', '2=Fear', '3=Happiness', '4=Sadness', '5=Surprise' ]
-###EXPRSSIONS_TYPE =  ['0=Neutral', '1=Anger', '2=Disgust', '3=Fear', '4=Happiness', '5=Sadness', '6=Surprise' ]
-# ### SFEW  ###
-# EXPRSSIONS_TYPE =  ['0=Angry', '1=Disgust', '2=Fear', '3=Happy', '4=Neutral', '5=Sad', '6=Surprise']
+
 
 def main(args):
     
     module_networks = str.split(args.model_def,'/')[-1]
     network = imp.load_source(module_networks, args.model_def)  
-    #etwork = importlib.import_module(args.model_def, 'inference')
-    #network = importlib.import_module(args.model_def)
+
 
     subdir = datetime.strftime(datetime.now(), '%Y%m%d-%H%M%S')
     log_dir = os.path.join(os.path.expanduser(args.logs_base_dir), subdir)
@@ -99,13 +90,11 @@ def main(args):
 
     ## filtering the visual images in test dataset
     filter = [x==0 for x in label_cari_test]
-    image_list_test_id_visual = list(compress(image_list_test, filter))
-    label_list_id_test_visual = list(compress(label_list_id_test, filter))
+
 
     # filtering the caricature images in test dataset
     filter = [x==1 for x in label_cari_test]
-    image_list_test_id_cari = list(compress(image_list_test, filter))
-    label_list_id_test_cari = list(compress(label_list_id_test, filter))
+
 
     print('Model directory: %s' % model_dir)
     print('Log directory: %s' % log_dir)
@@ -120,8 +109,7 @@ def main(args):
         print('Test data directory: %s' % args.data_dir)
 
         tf.set_random_seed(args.seed)
-        ## the global_step is saved as no name variable in the pretrained model, so adding the name 'global_step' will failed to load
-        #global_step = tf.Variable(0, trainable=False, name='global_step')
+
         global_step = tf.Variable(0, trainable=False)
 
 
@@ -221,40 +209,16 @@ def main(args):
         if args.center_loss_factor>0.0:
             prelogits_center_loss_verif, prelogits_center_loss_verif_n, centers, _, centers_cts_batch_reshape, diff_mean \
                 = metrics_loss.center_loss(embeddings, label_id_batch, args.center_loss_alfa, nrof_classes)
-            #prelogits_center_loss, _ = facenet_ext.center_loss_similarity(prelogits, label_batch, args.center_loss_alfa, nrof_classes) ####Similarity cosine distance, center loss
-            #tf.add_to_collection(tf.GraphKeys.REGULARIZATION_LOSSES, prelogits_center_loss_verif * args.center_loss_factor)
 
         cross_entropy_verif = tf.nn.sparse_softmax_cross_entropy_with_logits(
             logits=logits_id, labels=label_id_batch, name='cross_entropy_batch_verif')
         cross_entropy_mean_verif = tf.reduce_mean(cross_entropy_verif, name='cross_entropy_verif')
 
         loss_verif_n = cross_entropy_verif + args.center_loss_factor*prelogits_center_loss_verif_n
-        #loss_verif_n = cross_entropy_verif
         loss_verif = tf.reduce_mean(loss_verif_n, name='loss_verif')
-        #loss_verif = tf.add_n([loss_verif_n], name='loss_verif')
-        #tf.add_to_collection('losses', cross_entropy_mean_verif)
 
-        ###########################     Branch Visual image recognition  ################################
-        # ### transfer the output of the prelogits to 1600 elements which can respahe to 40x40 as an image input of the
-        # ### expression net
-        # logits_deconv = slim.fully_connected(prelogits, 1600, activation_fn=None,
-        #         weights_initializer=tf.truncated_normal_initializer(stddev=0.1),
-        #         weights_regularizer=slim.l2_regularizer(args.weight_decay),
-        #         scope='logits_deconv', reuse=False)
-        # ### reshape the prelogits to the 2D images [batch, width, height]
-        # prelogits_deconv = tf.reshape(logits_deconv, [batch_size_placeholder, 40,40,1], name='prelogits_reshape')
-
-        ### the expression net for expression classification, and the input is the reshaped logits_deconv
-        #inputs = end_points['MaxPool_3a_3x3']
-        #inputs = end_points['Conv2d_2b_3x3']
-        #inputs = end_points['Mixed_6a']
-        #inputs = end_points['Mixed_5a']
-        #inputs = end_points['Conv2d_4b_3x3']
-        #inputs = image_batch
         inputs = end_points['Mixed_7a']
-        #inputs = end_points['Mixed_8a']
-        #inputs = end_points['Mixed_6a']
-        #inputs = end_points['Mixed_6.5a']
+
         prelogits_expression, end_points_expression = network.inference_expression(inputs, keep_probability_placeholder, phase_train=phase_train_placeholder_expression, weight_decay=args.weight_decay)
         embeddings_expression = tf.nn.l2_normalize(prelogits_expression, 1, 1e-10, name='embeddings_expression')
 
@@ -265,11 +229,8 @@ def main(args):
         prelogits_expression_center_loss, prelogits_expression_center_loss_n, centers_expression, _, centers_cts_batch_reshape_expression, diff_mean_expression \
             = metrics_loss.center_loss(embeddings_expression_filter, label_id_filter_expr, args.center_loss_alfa, nrof_classes)
 
-        #logits_0 = slim.fully_connected(prelogits_expression, 128, activation_fn=tf.nn.relu,weights_initializer=tf.truncated_normal_initializer(stddev=0.1), weights_regularizer=slim.l2_regularizer(args.weight_decay),scope='Logits_0', reuse=False)
 
-        #logits_0 = slim.dropout(logits_0, keep_probability_placeholder, is_training=True, scope='Dropout')
 
-        #logits_expr = slim.fully_connected(logits_0, len(set(label_list_id)), activation_fn=tf.nn.relu,weights_initializer=tf.truncated_normal_initializer(stddev=0.1), weights_regularizer=slim.l2_regularizer(args.weight_decay),scope='Logits', reuse=False)
         logits_expr = slim.fully_connected(prelogits_expression, len(label_list_id_all_set), activation_fn=tf.nn.relu,weights_initializer=tf.truncated_normal_initializer(stddev=0.1), weights_regularizer=slim.l2_regularizer(args.weight_decay),scope='Logits', reuse=False)
 
         logits_expr = tf.identity(logits_expr, 'logits_expr')
@@ -284,15 +245,10 @@ def main(args):
         cross_entropy_expr = tf.nn.sparse_softmax_cross_entropy_with_logits(
             logits=logits_expr_filter, labels=label_id_filter_expr, name='cross_entropy_per_example')
         cross_entropy_mean_expr = tf.reduce_mean(cross_entropy_expr, name='cross_entropy_expr')
-        #tf.add_to_collection('losses', cross_entropy_mean)
-        
+
         # Calculate the total losses
-        regularization_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
-        # loss_expr_n = cross_entropy_expr
         loss_expr_n = cross_entropy_expr+args.center_loss_factor*prelogits_expression_center_loss_n
         loss_expr = tf.reduce_mean(loss_expr_n, name='loss_expr')
-        #loss_expr = tf.add_n([cross_entropy_mean_expr]+[args.center_loss_factor*prelogits_expression_center_loss], name='loss_expr')
-        #loss_expr = tf.add_n([loss_expr_n], name='loss_expr')
 
 
         ####################### Branch for caricature recognition  ############################
@@ -327,8 +283,7 @@ def main(args):
         cross_entropy_mean_cari = tf.reduce_mean(cross_entropy_cari, name='cross_entropy_cari')
         # Calculate the total losses
         regularization_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
-        # loss_cari_n = cross_entropy_cari
-        loss_cari_n = cross_entropy_cari+args.center_loss_factor*prelogits_cari_center_loss_n        
+        loss_cari_n = cross_entropy_cari+args.center_loss_factor*prelogits_cari_center_loss_n
         loss_cari = tf.reduce_mean(loss_cari_n, name='loss_cari')
 
         ##################################################################################################################
@@ -385,17 +340,12 @@ def main(args):
 
         #weight_fullcrossentropy = tf.add_n([tf.multiply(loss_verif_percentage+args.loss_weight_base, loss_verif_n)]+[tf.multiply(loss_expr_percentage, loss_expr_n)], name='weight_fullcrossentropy')
         loss_full = tf.reduce_mean(weight_fullcrossentropy, name='loss_full')
-        #loss_full = tf.multiply(tf.transpose(softmax_lossweights),
-        #loss_full = tf.add_n([loss_verif]+[loss_expr_percentage*loss_expr], name='loss_full')
-        #loss_full = tf.add_n([1*loss_verif]+[args.expression_loss_factor*loss_expr], name='loss_full')
-        #loss_full = tf.matmul(tf.transpose(softmax_lossweights), [loss_verif, loss_expr])
+
 
 
         # #### Training accuracy of softmax: check the underfitting or overfiting #############################
         correct_prediction_verif = tf.equal(tf.argmax(tf.exp(logits_id), 1), label_batch_id)
         softmax_acc_verif = tf.reduce_mean(tf.cast(correct_prediction_verif, tf.float32))
-        #correct_prediction_expr = tf.equal(tf.argmax(tf.exp(logits_expr), 1), label_batch_expr)
-        #correct_prediction_cari = tf.equal(tf.argmax(tf.exp(logits_cari), 1), label_batch_cari)
         correct_prediction_expr = tf.equal(tf.argmax(tf.exp(logits_expr_filter), 1), label_id_filter_expr)
         correct_prediction_cari = tf.equal(tf.argmax(tf.exp(logits_cari_filter), 1), label_id_filter_cari)
         softmax_acc_expr = tf.reduce_mean(tf.cast(correct_prediction_expr, tf.float32))
@@ -423,28 +373,7 @@ def main(args):
         update_gradient_vars_mainstem = []
         update_gradient_vars_weights = []
 
-        # for var in tf.trainable_variables():
-        #     #Update variables for Branch Expression recogntion
-        #     if 'InceptionResnetV1_expression/' in var.op.name or 'Logits/' in var.op.name or 'Logits_0/' in var.op.name:
-        #             print(var.op.name)
-        #             update_gradient_vars_expr.append(var)
-        #     # Update variables for Branch face verification
-        #     elif 'InceptionResnetV1/Block8' in var.op.name or 'InceptionResnetV1/Repeat_2/block8' in var.op.name or 'Logits_verif/' in var.op.name:
-        #         print(var.op.name)
-        #         update_gradient_vars_verif.append(var)
-        #
-        #     # Update variables for main stem
-        #     else:
-        #         print(var.op.name)
-        #         update_gradient_vars_mainstem.append(var)
-        #
-        #     #update_gradient_vars_mainstem.append(var)
 
-        #update_gradient_vars_mainstem = tf.trainable_variables()
-        # for var in tf.trainable_variables():
-        #     # Update variables for dynmic weights
-        #     if 'Logits_lossweights/' not in var.op.name:
-        #         update_gradient_vars_mainstem.append(var)
 
         for var in tf.trainable_variables():
             # Update variables for dynmic weights
@@ -462,10 +391,7 @@ def main(args):
         # Build the summary operation based on the TF collection of Summaries.
         summary_op = tf.summary.merge_all()
 
-        # train_op_verif, grads_verif, grads_clip_verif = train_BP.train(loss_verif, global_step, args.optimizer,
-        #     learning_rate, args.moving_average_decay, update_gradient_vars_verif, summary_op, args.log_histograms)
-        # train_op_expr, grads_expr, grads_clip_expr = train_BP.train(loss_expr, global_step, args.optimizer,
-        #     learning_rate, args.moving_average_decay, update_gradient_vars_expr, summary_op, args.log_histograms)
+
         train_op_mainstem, grads_full, grads_clip_full = train_BP.train(loss_full, global_step, args.optimizer,
             learning_rate, args.moving_average_decay, update_gradient_vars_mainstem, summary_op, args.log_histograms)
         train_op_weights, grads_weights, grads_clip__weights = train_BP.train(loss_for_weights, global_step, args.optimizer,
@@ -511,15 +437,7 @@ def main(args):
                     restore_saver_cavi.restore(sess, os.path.join(os.path.expanduser(args.pretrained_model), ckpt_file))
                 if isExpressionModel:
                     print('>>>>>>>>>>>> Loading directly the pretrained FaceLiveNet model :%s.....'% os.path.join(os.path.expanduser(args.pretrained_model), ckpt_file))
-                    # for var in tf.global_variables():
-                    #     if 'center' not in var.op.name:
-                    #         restore_vars.append(var)
-                    #
-                    # paracnt, parasize = count_paras(restore_vars)
-                    # print('The number of the loading parameters in the model(FaceLiveNet) is %dM, ......the size is : %dM bytes' % (
-                    #         paracnt / 1e6, parasize / 1e6))
-                    # restore_saver_expression = tf.train.Saver(restore_vars)
-                    # restore_saver_expression.restore(sess,os.path.join(os.path.expanduser(args.pretrained_model), ckpt_file))
+
 
                     restore_vars_verif = []
                     restore_vars_expre = []
@@ -552,9 +470,6 @@ def main(args):
                     restore_saver_expression = tf.train.Saver(restore_vars_expre)
                     restore_saver_expression.restore(sess, os.path.join(os.path.expanduser(args.pretrained_model), ckpt_file))
 
-                    # restore_vars_global = tf.global_variables()
-                    # restore_saver_global = tf.train.Saver(restore_vars_global)
-                    # restore_saver_global.restore(sess, os.path.join(os.path.expanduser(args.pretrained_model), ckpt_file))
                 else:
                     restore_vars_verif = []
                     restore_vars_expre = []
@@ -637,14 +552,7 @@ def main(args):
             nrof_expressions = len(set(label_list_id))
             each_expr_acc = np.zeros(nrof_expressions)
             express_probs_confus_matrix = np.zeros((nrof_expressions,nrof_expressions))
-            # with open(os.path.join(log_dir, 'Authentication_result.txt'), 'at') as f:
-            #     f.write('step, acc_faceauthen, best_acc_faceauthen, acc_expression, acc_verif_exprpairs\n')
-            # with open(os.path.join(log_dir, 'LFW_result.txt'), 'at') as f:
-            #     f.write('step, acc, val, far, best_acc\n')
-            # with open(os.path.join(log_dir, 'Expr_paris_result.txt'), 'at') as f:
-            #     f.write('step, acc, val, far, best_acc\n')
-            # with open(os.path.join(log_dir, 'Expression_result.txt'), 'at') as f:
-            #     f.write('step, test_expr_acc, best_acc_exprecog\n')
+
 
             epoch_current = 0
             f_weights = open(os.path.join(log_dir, 'percentage_full_loss.txt'), 'at')
@@ -785,12 +693,9 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
     print('Index_dequeue_op....')
     index_epoch = sess.run(index_dequeue_op)
     label_id_epoch = np.array(label_list_id)[index_epoch]
-    #label_expr_epoch = np.array(label_list_id)[index_epoch]
     label_cari_epoch = np.array(label_list_cari)[index_epoch]
     image_epoch = np.array(image_list)[index_epoch]
-    # for i in range(10):
-    #     print('index: %d' %index_epoch[i])
-    #     print('label_epoch: %d,%d image_epoch: %s' % (label_epoch[i][0],label_epoch[i][1], image_epoch[i]))
+
 
 
 
@@ -798,10 +703,8 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
     print('Enqueue__op....')
     # Enqueue one epoch of image paths and labels
     labels_id_array = np.expand_dims(np.array(label_id_epoch),1)
-    #labels_expr_array = np.expand_dims(np.array(label_expr_epoch), 1)
     labels_cari_array = np.expand_dims(np.array(label_cari_epoch), 1)
     image_paths_array = np.expand_dims(np.array(image_epoch),1)
-    #sess.run(enqueue_op, {image_paths_placeholder: image_paths_array, labels_id_placeholder: labels_id_array, labels_expr_placeholder: labels_expr_array})
     sess.run(enqueue_op, {image_paths_placeholder: image_paths_array, labels_id_placeholder: labels_id_array,
                           labels_expr_placeholder: labels_id_array, labels_cari_placeholder: labels_cari_array,})
 
@@ -811,9 +714,7 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
     ####################### summing up the values the dimensions of the variables for checking the updating of the variables ##########################
     vars_ref = []
     check_vars = update_gradient_vars_expr
-    #check_vars = tf.trainable_variables()
     for var in check_vars:
-    #for var in tf.trainable_variables():
         var_value = sess.run(var)
         vars_ref.append(np.sum(var_value))
     ####################### summing up the values the dimensions of the variables for checking the updating of the variables ##########################
@@ -822,7 +723,6 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
 
     while batch_number < args.epoch_size:
         start_time = time.time()
-        #feed_dict = {learning_rate_placeholder: lr, phase_train_placeholder:True, batch_size_placeholder:args.batch_size, keep_probability_placeholder: args.keep_probability}
         feed_dict = {learning_rate_placeholder: lr,
                      phase_train_placeholder: True,
                      phase_train_placeholder_expression: True,
@@ -919,25 +819,9 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
 
 
 
-        # ############# the accuracy of each expression  ################
-        # express_probs = np.exp(logits_expr_) / np.tile(
-        #     np.reshape(np.sum(np.exp(logits_expr_), 1), (logits_expr_.shape[0], 1)), (1, logits_expr_.shape[1]))
-        # nrof_expression = len(set(label_list_id))
-        # expressions_predict = np.argmax(express_probs, 1)
-        #
-        # exp_cnt = np.zeros(nrof_expression)
-        # expredict_cnt = np.zeros(nrof_expression)
-        # for i in range(label_batch_expr_.shape[0]):
-        #     lab = label_batch_expr_[i]
-        #     exp_cnt[lab] += 1
-        #     if lab == expressions_predict[i]:
-        #         expredict_cnt[lab] += 1
-        # train_each_expr_acc = expredict_cnt / exp_cnt
-        ###############################################
+
         print('########## log dir is: %s '%log_dir )
         print('########## model dir is: %s ' %model_dir)
-        # print('Epoch: [%d][%d/%d]\tTime %.3f\tLoss %2.4f\tCrossEntropy %2.4f\tRegLoss %2.4f\tCenterLoss_cosine %2.4f\tAcc %2.4f\tVal %2.4f\tFar %2.4f' %
-        #       (epoch, batch_number+1, args.epoch_size, duration, err, cross_entropy_mean_, np.sum(reg_loss), prelogits_center_loss_verif_, acc, val, far))
         print('Epoch: [%d][%d][%d/%d] Time %.3f\n \
         Loss_verif %2.4f Loss_visual-recog %2.4f Loss_cari-recog %2.4f CrossEntropy_verif %2.4f CrossEntropy_visual-recog %2.4f CrossEntropy_cari-recog %2.4f\n \
         weight_verif: %2.4f weight_visual-recog: %2.4f weight_cari-recog: %2.4f  exp(logits_lossweights_embedding): %f %f %f loss_for_weights: %f \n \
@@ -966,7 +850,6 @@ def train(args, sess, epoch, image_list, label_list_id, index_dequeue_op, enqueu
     #pylint: disable=maybe-no-member
     summary.value.add(tag='time/total', simple_value=train_time)
     summary_writer.add_summary(summary, step)
-    #return step, train_each_expr_acc, softmax_acc_verif_, softmax_acc_expr_, loss_verif_, loss_expr_, cross_entropy_mean_verif_, cross_entropy_mean_expr_, np.sum(reg_loss),  prelogits_center_loss_verif_, acc, learning_rate_
     return step, softmax_acc_verif_, softmax_acc_expr_, loss_verif_, loss_expr_, cross_entropy_mean_verif_, cross_entropy_mean_expr_, np.sum(reg_loss),  prelogits_center_loss_verif_, acc, learning_rate_, np.mean(loss_verif_percentage_), np.mean(loss_expr_percentage_), np.mean(loss_cari_percentage_), loss_cari_, cross_entropy_mean_cari_, prelogits_center_loss_verif_
 
 
