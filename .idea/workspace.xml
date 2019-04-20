@@ -2,63 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68e51f2a-c70c-4ff6-a0ec-1d3dadd943ac" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/2017-09-26-150948_smile.webm" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/IdentitySplit_3th_10fold_ckpluspairs.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/IdentitySplit_3th_10fold_ckpluspairs_2k.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/IdentitySplit_4th_10fold_oulucasiapairs_Six.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/IdentitySplit_4th_10fold_oulucasiapairs_Six_5k.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/Zuheng_1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/configurations" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/Anthony_Hopkins_0001.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/Anthony_Hopkins_0002.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/images/Zuheng.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_retrain_tripletloss.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_casia.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_ckplus.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_ckplus_best.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_ckplus_nonan.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_ckplus_simple.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_fer.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_idiap.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_msceleb.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_oulucasia.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_oulucasia_v2.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_oulucasia_v3.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/learning_rate_schedule_classifier_sfew.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/pairs.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/pairs_youtubeface_1000frames.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/smile_emoji.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/suprise_emoji.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/.carirecog_dynamic_L1L2L3_multimodel.py.swp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_doubleCenterloss.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_doubleCenterloss_newdyn.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_doubleCenterloss_newdyn_updatebybatch.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_10folds.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_2tasks_optimize_onelayer.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_2tasks_optimize_onelayer_2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_softmaxCenterloss.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_v1.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_dynamic_L1L2L3_v1_single_recog.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/carirecog_naviedynamic_L1L2L3_multimodel_v3_2tasks_optimize_onelayer_2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/evaluate_id-expression-verif_oulucasia_joint.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/facenet_ext.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/plot_roc.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/plot_t-SNE.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/webcari_fixedweights_L1L2L3_multimodel.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evaluate_cavi.py" afterPath="$PROJECT_DIR$/src/evaluate_cavi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evaluate_webcavi.py" afterPath="$PROJECT_DIR$/src/evaluate_webcavi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/evaluate_webcavi_identify.py" afterPath="$PROJECT_DIR$/src/evaluate_webcavi_identify.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/feature_extract_cavi.py" afterPath="$PROJECT_DIR$/src/feature_extract_cavi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/lfw_ext.py" afterPath="$PROJECT_DIR$/src/lfw_ext.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/metrics_loss.py" afterPath="$PROJECT_DIR$/src/metrics_loss.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/train_BP.py" afterPath="$PROJECT_DIR$/src/train_BP.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" afterPath="$PROJECT_DIR$/src/webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/.inception_resnet_v1_expression.py.swp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/.inception_resnet_v1_expression_simple_branchcut.py.swp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/ExponentialMovingAverage_test.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/inception_resnet_v1.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/inception_resnet_v1_expression.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/inception_resnet_v1_expression_distinguer_simple.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/inception_resnet_v1_expression_simple.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/inception_resnet_v1_expression_simple_branchcut.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/inception_resnet_v1_simple.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/inception_resnet_v1_simple_tf012.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/inception_resnet_v1_simple_v2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/inception_resnet_v2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/network.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/nn2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/nn3.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/nn4.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/models/nn4_small2_v1.py" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -284,21 +244,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cari-visual-recognition-via-multitask-learning" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
+              <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -485,9 +431,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="31" width="1920" height="1017" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32945737" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
