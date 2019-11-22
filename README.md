@@ -52,19 +52,15 @@ More details can be checked in the scripts.
 The evaluation of the model can conduct by the evaluate_cavi.py, evaluate_webcavi.py and evaluate_webcavi_identify.py
 
 ### Citation
-    @article{7553523,
-        author={K. Zhang and Z. Zhang and Z. Li and Y. Qiao}, 
-        journal={IEEE Signal Processing Letters}, 
-        title={Joint Face Detection and Alignment Using Multitask Cascaded Convolutional Networks}, 
-        year={2016}, 
-        volume={23}, 
-        number={10}, 
-        pages={1499-1503}, 
-        keywords={Benchmark testing;Computer architecture;Convolution;Detectors;Face;Face detection;Training;Cascaded convolutional neural network (CNN);face alignment;face detection}, 
-        doi={10.1109/LSP.2016.2603342}, 
-        ISSN={1070-9908}, 
-        month={Oct}
-    }
+        @inproceedings{ming2019dynamic,
+          title={Dynamic Deep Multi-task Learning for Caricature-Visual Face Recognition},
+          author={Ming, Zuheng and Burie, Jean-Christophe and Luqman, Muhammad Muzzamil},
+          booktitle={2019 International Conference on Document Analysis and Recognition Workshops (ICDARW)},
+          volume={1},
+          pages={92--97},
+          year={2019},
+          organization={IEEE}
+        }
 
 ### License
 This code is distributed under MIT LICENSE
