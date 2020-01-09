@@ -52,6 +52,7 @@ More details can be checked in the scripts.
 
 The evaluation of the model can conduct by the evaluate_cavi.py, evaluate_webcavi.py and evaluate_webcavi_identify.py
 
+<!
 ### Citation
         @inproceedings{ming2019dynamic,
           title={Dynamic Deep Multi-task Learning for Caricature-Visual Face Recognition},
@@ -62,7 +63,7 @@ The evaluation of the model can conduct by the evaluate_cavi.py, evaluate_webcav
           year={2019},
           organization={IEEE}
         }
-
+>
 ### License
 This code is distributed under MIT LICENSE
 
