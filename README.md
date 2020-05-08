@@ -38,16 +38,16 @@ python webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py --logs
 -->
 
 ## parameters:
---logs_base_dir, --models_base_dir: the path to save the log and training model
---data_dir: training images
---train_pairs: the caricature-visual images for training given by the benchmark of webcaricatures
---test_pairs: the caricature-visual images used for the evalution of the models following the different protocol
---image_size: the required image size for training
---model_def: the networks architecutre used in this work
---optimizer: optimizer for the BP of the parameters of CNNs
---learning_rate: setting of learning rate, if it is <0, the configuration file --learning_rate_schedule_file for setting the learning will be used
---pretrained_model: the path to the pretrained model
---center_loss_factor : centerloss weight in the full loss function
+--logs_base_dir, --models_base_dir: the path to save the log and training model  
+--data_dir: training images  
+--train_pairs: the caricature-visual images for training given by the benchmark of webcaricatures  
+--test_pairs: the caricature-visual images used for the evalution of the models following the different protocol  
+--image_size: the required image size for training  
+--model_def: the networks architecutre used in this work  
+--optimizer: optimizer for the BP of the parameters of CNNs  
+--learning_rate: setting of learning rate, if it is <0, the configuration file --learning_rate_schedule_file for setting the learning will be used  
+--pretrained_model: the path to the pretrained model  
+--center_loss_factor : centerloss weight in the full loss function  
 More details can be checked in the scripts.
 
 The evaluation of the model can conduct by the evaluate_cavi.py, evaluate_webcavi.py and evaluate_webcavi_identify.py
