@@ -52,6 +52,9 @@ More details can be checked in the scripts.
 
 The evaluation of the model can conduct by the evaluate_cavi.py, evaluate_webcavi.py and evaluate_webcavi_identify.py
 
+## Training example:
+arguments: carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py --logs_base_dir /data/zming/logs/cavi --models_base_dir /data/zming/models/cavi --data_dir /data/zming/datasets/CaVINet-master/CaVI_Dataset --image_size 160 --model_def ./models/inception_resnet_v1_cari_vis.py --optimizer RMSProp --learning_rate -1 --max_nrof_epochs 10000 --keep_probability 0.5 --learning_rate_schedule_file ../data/learning_rate_schedule_classifier_cavi.txt --weight_decay 5e-5 --center_loss_factor 1e-1 --center_loss_alfa 0.5 --gpu_memory_fraction 0.7 --epoch_size 100 --batch_size 256 --pretrained_model /data/zming/models/expression/20180113-231253/best_model --lfw_dir /data/zming/datasets/lfw/lfw_mtcnnpy_160 --nfold 10 --ifold 4 --learning_rate_decay_epochs 5 --train_pairs /data/zming/datasets/CaVINet-master/train-test-files/training_zm.txt --test_pairs /data/zming/datasets/CaVINet-master/train-test-files/testing_1.txt --downsample 20
+--------------------
 
 ### Citation
         @inproceedings{ming2019dynamic,
