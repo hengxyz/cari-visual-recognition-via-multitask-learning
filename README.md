@@ -17,11 +17,6 @@ The generating dynamic weights can automatically focus on the training of the ha
 
 - install python 2.7
 
-
-## Pretrained model
-The pretrained model of the face verifcation of the visual image on the large scale dataset [MSCeleb](https://www.msceleb.org/) is [here](https://drive.google.com/file/d/1B-ZRtWk1UoAQXHTewhKV5UPvwP3L102X/view?usp=sharing)
-
-
 ## Training
 The cross-model caricature-visual face recogntion is trained on the  [CaVI](https://lsaiml.github.io/CaVINet/) and [WebCaricature](https://cs.nju.edu.cn/rl/WebCaricature.htm). The examples of the datasets are shown in ![Fig.4](https://github.com/hengxyz/cari-visual-recognition-via-multitask-learning/blob/master/figs/Fig1-caricatures.png)
 
@@ -29,13 +24,6 @@ The cross-model caricature-visual face recogntion is trained on the  [CaVI](http
 
 ## Face alignment
 The face detection for the visual image is implemented by the [Multi-task CNN (Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks).The paper for MTCNN)](https://kpzhang93.github.io/MTCNN_face_detection_alignment/index.html).
-
-<!---
-### Examples for command line:
-
-Training the model (e.g. on dataset webcaricature):
-python webcari_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py --logs_base_dir /data/zming/logs/cavi --models_base_dir /data/zming/models/cavi --data_dir /data/zming/datasets/WebCaricature/FaceDetected/ --image_size 160 --model_def ./models/inception_resnet_v1_cari_vis.py --optimizer RMSProp --learning_rate -1 --max_nrof_epochs 10000 --keep_probability 0.5 --learning_rate_schedule_file ../data/learning_rate_schedule_classifier_cavi.txt --weight_decay 5e-5 --center_loss_factor 1e-1 --center_loss_alfa 0.5 --gpu_memory_fraction 0.75 --epoch_size 100 --batch_size 256 --pretrained_model /data/zming/models/expression/20180113-231253/best_model --lfw_dir /data/zming/datasets/lfw/lfw_mtcnnpy_160 --nfold 10 --ifold 4 --learning_rate_decay_epochs 5 --train_pairs /data/zming/datasets/WebCaricature/Evaluation/FaceVerification/Restricted/RestrictedView1_DevTrain.txt --test_pairs /data/zming/datasets/WebCaricature/Evaluation/FaceVerification/Restricted/RestrictedView1_DevTest.txt
--->
 
 ## parameters:
 --logs_base_dir, --models_base_dir: the path to save the log and training model  
@@ -52,9 +40,14 @@ More details can be checked in the scripts.
 
 The evaluation of the model can conduct by the evaluate_cavi.py, evaluate_webcavi.py and evaluate_webcavi_identify.py
 
-## Training example:
-arguments: carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py --logs_base_dir /data/zming/logs/cavi --models_base_dir /data/zming/models/cavi --data_dir /data/zming/datasets/CaVINet-master/CaVI_Dataset --image_size 160 --model_def ./models/inception_resnet_v1_cari_vis.py --optimizer RMSProp --learning_rate -1 --max_nrof_epochs 10000 --keep_probability 0.5 --learning_rate_schedule_file ../data/learning_rate_schedule_classifier_cavi.txt --weight_decay 5e-5 --center_loss_factor 1e-1 --center_loss_alfa 0.5 --gpu_memory_fraction 0.7 --epoch_size 100 --batch_size 256 --pretrained_model /data/zming/models/expression/20180113-231253/best_model --lfw_dir /data/zming/datasets/lfw/lfw_mtcnnpy_160 --nfold 10 --ifold 4 --learning_rate_decay_epochs 5 --train_pairs /data/zming/datasets/CaVINet-master/train-test-files/training_zm.txt --test_pairs /data/zming/datasets/CaVINet-master/train-test-files/testing_1.txt --downsample 20
---------------------
+### Examples for training:
+Training the model (e.g. on dataset cavi):
+arguments: carirecog_dynamic_L1L2L3_multimodel_v3_3weights_optimize_onelayer.py --logs_base_dir /data/zming/logs/cavi --models_base_dir /data/zming/models/cavi --data_dir /data/zming/datasets/CaVINet-master/CaVI_Dataset --image_size 160 --model_def ./models/inception_resnet_v1_cari_vis.py --optimizer RMSProp --learning_rate -1 --max_nrof_epochs 10000 --keep_probability 0.5 --learning_rate_schedule_file ../data/learning_rate_schedule_classifier_cavi.txt --weight_decay 5e-5 --center_loss_factor 1e-1 --center_loss_alfa 0.5 --gpu_memory_fraction 0.7 --epoch_size 100 --batch_size 256 --pretrained_model /data/zming/models/20180113-231253/best_model --lfw_dir /data/zming/datasets/lfw/lfw_mtcnnpy_160 --nfold 10 --ifold 4 --learning_rate_decay_epochs 5 --train_pairs /data/zming/datasets/CaVINet-master/train-test-files/training_zm.txt --test_pairs /data/zming/datasets/CaVINet-master/train-test-files/testing_1.txt --downsample 20
+
+
+## Pretrained model
+The pretrained model 20180113-231253/best_model is [here](https://drive.google.com/drive/folders/1njI3P2OMm34KBDM40tHVYws3Czm4Damg?usp=sharing)
+
 
 ### Citation
         @inproceedings{ming2019dynamic,
